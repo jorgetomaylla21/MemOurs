@@ -25,7 +25,7 @@ const Skeleton = (props: Props) => {
           <NavBar handleLogin={handleLogin} handleLogout={handleLogout} userId={props.userId} />
         </header>
         <div className="flex pt-[76px]">
-          <aside className="sticky top-0 h-screen">
+          <aside className="sticky top-0 h-screen w-[300px]">
             <SideBar />
           </aside>
           <section className="w-full">
