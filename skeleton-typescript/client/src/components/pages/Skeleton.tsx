@@ -1,13 +1,9 @@
 import React from "react";
-import {
-  GoogleOAuthProvider,
-  GoogleLogin,
-  googleLogout,
-  CredentialResponse,
-} from "@react-oauth/google";
+import { GoogleOAuthProvider, CredentialResponse } from "@react-oauth/google";
 
 import "./Skeleton.css";
-import "../../../src/input.css";
+import "../../../src/output.css";
+import NavBar from "../NavBar";
 import { RouteComponentProps } from "@reach/router";
 
 //TODO(weblab student): REPLACE WITH YOUR OWN CLIENT_ID
@@ -23,18 +19,7 @@ const Skeleton = (props: Props) => {
 
   return (
     <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
-      {props.userId ? (
-        <button
-          onClick={() => {
-            googleLogout();
-            handleLogout();
-          }}
-        >
-          Logout
-        </button>
-      ) : (
-        <GoogleLogin onSuccess={handleLogin} onError={() => console.log("Error Logging in")} />
-      )}
+      <NavBar handleLogin={handleLogin} handleLogout={handleLogout} userId={props.userId} />
       <h1>Good luck on your project :)</h1>
       <h2> What we provide in this skeleton</h2>
       <ul>
@@ -52,7 +37,7 @@ const Skeleton = (props: Props) => {
         <li>Add a favicon to your website at the path client/dist/favicon.ico</li>
         <li>Update website title in client/dist/index.html</li>
       </ul>
-      <h1 className="text-3xl font-bold underline text-red-300">Hello world!</h1>
+      <h1 className="text-3xl text-center font-bold underline text-red-300">Hello world!</h1>
     </GoogleOAuthProvider>
   );
 };
