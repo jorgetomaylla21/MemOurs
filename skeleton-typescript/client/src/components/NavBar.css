@@ -2,6 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
-.container {
-  display: grid;
+@layer components {
+  .nav-bar {
+    @apply flex bg-gray-800 w-screen p-2 justify-between;
+  }
+  .nav-icon {
+    @apply flex items-center justify-center
+          font-mono font-bold text-base relative 
+          h-10 w-32 my-3 mb-2 mx-2 px-2 
+          bg-gray-800 text-white rounded
+          hover:hover:bg-gray-700 
+          transition-all duration-200 ease-linear;
+  }
+  .google-button {
+    @apply p-2 mt-1 mr-2;
+  }
+  .logo {
+    @apply relative flex justify-center items-center     
+          rounded-lg bg-gray-800 text-gray-300
+          hover:bg-gray-300 hover:text-black hover:bg-opacity-40
+          hover:w-12 hover:h-12 hover:my-1 hover:mx-2
+          p-1 my-2 mx-3 w-10 h-10;
+  }
 }

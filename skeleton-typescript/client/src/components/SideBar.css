@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  /* SideBar */
+  .sidebar-container {
+    @apply h-full bg-white 
+    border-r border-gray-300 
+    hover:bg-gray-50
+    p-4;
+  }
+
+  /* ProfileCard */
+  .profilecard-container {
+    @apply flex justify-center items-center 
+    gap-4 py-8 h-48;
+  }
+
+  .profile-pic {
+    @apply items-center aspect-square
+     bg-blue-400 rounded-full
+     w-32 h-32;
+  }
+
+  .profile-name {
+    @apply text-center 
+    font-mono font-semibold
+    group-hover:text-blue-900;
+  }
+
+  /* StatsCard */
+  .statscard-container {
+    @apply group-hover:text-blue-900
+    px-2;
+  }
+  .stats-header {
+    @apply font-mono font-bold text-center;
+  }
+  .stats-entry {
+    @apply flex justify-between 
+    font-mono text-sm
+    my-2;
+  }
+  .stats-type {
+    @apply font-semibold;
+  }
+  .stats-value {
+    @apply font-mono;
+  }
+}

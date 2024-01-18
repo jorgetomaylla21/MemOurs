@@ -33,7 +33,7 @@ const NavBar = (props: Props) => {
       <div className="flex justify-between">
         {props.userId ? (
           <button
-            className="logout-button"
+            className="nav-icon mr-4"
             onClick={() => {
               googleLogout();
               handleLogout();
@@ -42,7 +42,7 @@ const NavBar = (props: Props) => {
             Logout
           </button>
         ) : (
-          <div className="mt-2">
+          <div className="google-button">
             <GoogleLogin onSuccess={handleLogin} onError={() => console.log("Error Logging in")} />
           </div>
         )}
