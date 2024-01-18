@@ -21,6 +21,8 @@ const entryFile = path.resolve(__dirname, "client", "src", "index.tsx");
 const outputDir = path.resolve(__dirname, "client", "dist");
 
 const webpack = require("webpack");
+const tailwindcss = require("tailwindcss");
+const autoprefixer = require("autoprefixer");
 
 module.exports = {
   entry: [entryFile],
@@ -57,6 +59,14 @@ module.exports = {
           },
           {
             loader: "css-loader",
+          },
+          {
+            loader: "postcss-loader",
+            options: {
+              postcssOptions: {
+                plugins: [tailwindcss, autoprefixer],
+              },
+            },
           },
         ],
       },

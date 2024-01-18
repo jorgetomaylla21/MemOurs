@@ -7,6 +7,7 @@ import {
 } from "@react-oauth/google";
 
 import "./Skeleton.css";
+import "../../../src/input.css";
 import { RouteComponentProps } from "@reach/router";
 
 //TODO(weblab student): REPLACE WITH YOUR OWN CLIENT_ID
@@ -51,6 +52,7 @@ const Skeleton = (props: Props) => {
         <li>Add a favicon to your website at the path client/dist/favicon.ico</li>
         <li>Update website title in client/dist/index.html</li>
       </ul>
+      <h1 className="text-3xl font-bold underline text-red-300">Hello world!</h1>
     </GoogleOAuthProvider>
   );
 };
