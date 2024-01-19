@@ -1,9 +1,7 @@
 import express from "express";
 import auth from "./auth";
 import socketManager from "./server-socket";
-import { JournalEntry } from "./models/JournalEntry";
 
-const User = require("./models/User");
 const JournalEntry = require("./models/JournalEntry");
 
 const router = express.Router();
@@ -38,7 +36,7 @@ router.post("/save-journal", auth.ensureLoggedIn, (req, res) => {
     _id: req.user?._id,
     name: req.user?.name,
   };
-  const newTaggedPeople = req.body.taggedPeople.map((user: User) => {
+  const newTaggedPeople = req.body.taggedPeople.map((user) => {
     ({ _id: user._id, name: user.name });
   });
 

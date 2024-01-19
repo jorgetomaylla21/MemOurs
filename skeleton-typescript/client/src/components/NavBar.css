@@ -4,7 +4,9 @@
 
 @layer components {
   .nav-bar {
-    @apply flex bg-gray-800 w-screen p-2 justify-between;
+    @apply flex justify-between 
+    bg-gray-800 opacity-[97%]
+    w-screen p-2;
   }
   .nav-icon {
     @apply flex items-center justify-center

@@ -24,18 +24,16 @@ const Skeleton = (props: Props) => {
         <header className="fixed top-0 z-50">
           <NavBar handleLogin={handleLogin} handleLogout={handleLogout} userId={props.userId} />
         </header>
-        <div className="flex pt-[76px]">
-          <aside className="sticky top-0 h-screen w-[300px]">
+        <div className="sidebar-content-container">
+          <aside className="sidebar-page-container">
             <SideBar />
           </aside>
-          <section className="w-full">
+          <section className="header-content-container">
             <header className="header-container">
-              <div className="header-subcontainer">
-                <h1 className="header-text">MemOurs</h1>
-              </div>
+              <h1 className="header-text">MemOurs</h1>
             </header>
             <main>
-              <div className="max-w-7xl py-6 sm:px-6 lg:px-8">content here</div>
+              <div className="main-content-container">content here</div>
             </main>
           </section>
         </div>
