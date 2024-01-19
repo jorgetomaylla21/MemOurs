@@ -50,7 +50,7 @@ const App = () => {
     <Router>
       <Skeleton path="/" handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />
       <NotFound default={true} />
-      <TextEditor path="/new-entry"/>
+      <TextEditor path="/new-entry" handleLogin={handleLogin} handleLogout={handleLogout} userId={userId}/>
     </Router>
   );
 };
