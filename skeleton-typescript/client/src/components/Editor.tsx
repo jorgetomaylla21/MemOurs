@@ -1,4 +1,6 @@
 import React, { useState, ChangeEvent } from "react";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 import "./Editor.css";
 
 interface TextEditorProps {
@@ -15,6 +17,11 @@ const Editor: React.FC<TextEditorProps> = ({ initialText = "" }) => {
 
   const handleTitleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setTitle(event.target.value);
+  };
+  const [editorHtml, setEditorHtml] = useState("");
+
+  const handleChange = (html) => {
+    setEditorHtml(html);
   };
 
   return (
@@ -46,14 +53,14 @@ const Editor: React.FC<TextEditorProps> = ({ initialText = "" }) => {
       </ul>
       <section className="h-screen">
         <div className="body-editor-container">
-          <textarea
-            className="vanilla-editor body-editor"
-            value={text}
-            onChange={handleTextChange}
-            rows={10}
-            cols={30}
-            placeholder="Write your thoughts here.."
-          />
+          <div className="body-editor-subcontainer">
+            <ReactQuill
+              theme="snow" // You can choose different themes (snow, bubble, etc.)
+              className="vanilla-editor body-editor"
+              value={editorHtml}
+              onChange={handleChange}
+            />
+          </div>
         </div>
         <nav className="u-center">
           <div className="options-container">

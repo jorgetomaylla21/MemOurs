@@ -3,12 +3,14 @@
 @tailwind utilities;
 
 @layer components {
+  /* SideBar */
   .sidebar-content-container {
     @apply flex pt-[76px] justify-start;
   }
   .sidebar-page-container {
-    @apply fixed left-0 h-screen w-[250px];
+    @apply fixed left-0 h-screen w-[250px] z-50;
   }
+  /* Header */
   .header-content-container {
     @apply w-full pl-[250px];
   }

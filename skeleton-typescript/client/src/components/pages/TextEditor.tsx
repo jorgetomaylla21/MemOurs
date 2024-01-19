@@ -31,7 +31,7 @@ const TextEditor = (props: Props) => {
           <aside className="sidebar-page-container">
             <SideBar />
           </aside>
-          <section className="header-content-container">
+          <section className="header-content-container fixed">
             <header className="header-container">
               <h1 className="header-text">MemOurs</h1>
             </header>
