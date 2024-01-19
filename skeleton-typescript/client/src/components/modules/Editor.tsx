@@ -2,23 +2,21 @@ import React, { useState, ChangeEvent } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import "./Editor.css";
+import DropdownOptions from "./DropdownOptions";
 
 interface TextEditorProps {
   initialText?: string;
 }
 
 const Editor: React.FC<TextEditorProps> = ({ initialText = "" }) => {
-  const [text, setText] = useState<string>(initialText);
+  const permissionOptions = [{ name: "Draft" }, { name: "Private" }, { name: "Public" }];
   const [title, setTitle] = useState<string>(initialText);
-
-  const handleTextChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    setText(event.target.value);
-  };
+  const [editorHtml, setEditorHtml] = useState("");
+  const [permissions, setPermissions] = useState(permissionOptions[0]);
 
   const handleTitleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setTitle(event.target.value);
   };
-  const [editorHtml, setEditorHtml] = useState("");
 
   const handleChange = (html) => {
     setEditorHtml(html);
@@ -65,7 +63,12 @@ const Editor: React.FC<TextEditorProps> = ({ initialText = "" }) => {
         <nav className="u-center">
           <div className="options-container">
             {/* TO-DO: add onClick that posts data to server */}
-            <button className="save-button">Save</button>
+            <DropdownOptions
+              selected={permissions}
+              setSelected={setPermissions}
+              allOptions={permissionOptions}
+            />
+            <button className="options-button save-button">Save</button>
           </div>
         </nav>
       </section>
