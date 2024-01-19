@@ -2,20 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --w-sidebar: 200px;
+  --under-nav: 76px;
+}
 @layer components {
   /* SideBar */
   .sidebar-content-container {
-    @apply flex pt-[76px] justify-start;
+    @apply flex justify-start 
+    pt-[var(--under-nav)];
   }
   .sidebar-page-container {
-    @apply fixed left-0 h-screen w-[250px] z-50;
+    @apply fixed left-0 
+    h-screen w-[var(--w-sidebar)] z-50;
   }
   /* Header */
   .header-content-container {
-    @apply w-full pl-[250px];
+    @apply w-full pl-[var(--w-sidebar)];
   }
   .header-container {
-    @apply bg-white shadow w-full px-4 py-4 sm:px-4 lg:px-6;
+    @apply bg-white shadow 
+    w-full px-4 py-4 sm:px-4 lg:px-6;
   }
   .header-text {
     @apply text-3xl font-mono font-bold 
