@@ -13,16 +13,16 @@
     @apply w-full pl-[250px];
   }
   .header-container {
-    @apply bg-white shadow w-full max-w-7xl px-4 py-4 sm:px-4 lg:px-6;
+    @apply bg-white shadow w-full px-4 py-4 sm:px-4 lg:px-6;
   }
   .header-text {
     @apply text-3xl font-mono font-bold 
     text-gray-900;
   }
   .regular-text {
-    @apply font-mono max-w-7xl py-6 sm:px-6 lg:px-8;
+    @apply font-mono w-full py-6 sm:px-6 lg:px-8;
   }
   .main-content-container {
-    @apply max-w-7xl;
+    @apply w-full;
   }
 }
