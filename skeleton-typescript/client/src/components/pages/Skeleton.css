@@ -23,6 +23,6 @@
     @apply font-mono max-w-7xl py-6 sm:px-6 lg:px-8;
   }
   .main-content-container {
-    @apply max-w-7xl py-6 sm:px-6 lg:px-8;
+    @apply max-w-7xl;
   }
 }
