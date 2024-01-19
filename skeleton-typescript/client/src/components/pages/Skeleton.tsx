@@ -31,7 +31,7 @@ const Skeleton = (props: Props) => {
           <section className="w-full">
             <header className="header-container">
               <div className="header-subcontainer">
-                <h1 className="header-text">Home Dashboard</h1>
+                <h1 className="header-text">MemOurs</h1>
               </div>
             </header>
             <main>
