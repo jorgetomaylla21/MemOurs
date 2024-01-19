@@ -1,13 +1,12 @@
 import React from "react";
 import { GoogleOAuthProvider, CredentialResponse } from "@react-oauth/google";
 
-import "./Skeleton.css";
+import "./Home.css";
 import "../../../src/output.css";
-import NavBar from "../NavBar";
+import NavBar from "../modules/NavBar";
 import { RouteComponentProps } from "@reach/router";
-import SideBar from "../SideBar";
+import SideBar from "../modules/SideBar";
 
-//TODO(weblab student): REPLACE WITH YOUR OWN CLIENT_ID
 const GOOGLE_CLIENT_ID = "969378506162-5ltmi54vc1d96lelg5b44slm8c1vbol3.apps.googleusercontent.com";
 
 type Props = RouteComponentProps & {

@@ -8,7 +8,8 @@
     @apply h-full bg-white 
     border-r border-gray-300 
     hover:bg-gray-50
-    p-2;
+    rounded-r-md
+    p-2 text-sm;
   }
 
   /* ProfileCard */
@@ -39,7 +40,7 @@
   }
   .stats-entry {
     @apply flex justify-between 
-    font-mono text-sm
+    font-mono text-xs
     my-2;
   }
   .stats-type {

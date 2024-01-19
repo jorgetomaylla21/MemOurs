@@ -1,10 +1,9 @@
 import React from "react";
-import "../../src/output.css";
 import { Link } from "@reach/router";
 import "./NavBar.css";
 import { GoogleLogin, googleLogout, CredentialResponse } from "@react-oauth/google";
 import { RouteComponentProps } from "@reach/router";
-import logo from "../assets/logo.png";
+import logo from "../../assets/logo.png";
 
 type Props = RouteComponentProps & {
   userId?: string;
