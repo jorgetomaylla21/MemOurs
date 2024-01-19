@@ -5,7 +5,7 @@ import { CredentialResponse } from "@react-oauth/google";
 
 import { get, post } from "../utilities";
 import NotFound from "./pages/NotFound";
-import Skeleton from "./pages/Skeleton";
+import Skeleton from "./pages/Home";
 import TextEditor from "./pages/TextEditor";
 import { socket } from "../client-socket";
 import User from "../../../shared/User";
