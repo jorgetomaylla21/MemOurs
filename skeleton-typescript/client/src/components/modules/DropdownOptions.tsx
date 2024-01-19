@@ -32,7 +32,7 @@ const DropdownOptions = (props: Props) => {
             leaveTo="opacity-0"
           >
             <Listbox.Options className="options-list-container">
-              {props.allOptions.map((option, optionIdx) => (
+              {props.allOptions.map((option: Option, optionIdx) => (
                 <Listbox.Option
                   key={optionIdx}
                   className={({ active }) =>
@@ -40,20 +40,24 @@ const DropdownOptions = (props: Props) => {
                   }
                   value={option}
                 >
-                  {({ selected }) => (
-                    <>
-                      <span
-                        className={`block truncate ${selected ? "font-medium" : "font-normal"}`}
-                      >
-                        {option.name}
-                      </span>
-                      {selected ? (
-                        <span className="check-container">
-                          <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                  {() => {
+                    const isSelected = option.name === props.selected.name;
+                    return (
+                      <>
+                        <span
+                          className={`block truncate ${isSelected ? "font-medium" : "font-normal"}`}
+                        >
+                          {option.name}
                         </span>
-                      ) : null}
-                    </>
-                  )}
+                        {console.log(isSelected)}
+                        {isSelected ? (
+                          <span className="check-container">
+                            <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                          </span>
+                        ) : null}
+                      </>
+                    );
+                  }}
                 </Listbox.Option>
               ))}
             </Listbox.Options>
