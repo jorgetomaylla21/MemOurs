@@ -7,6 +7,7 @@ import { get, post } from "../utilities";
 import NotFound from "./pages/NotFound";
 import Skeleton from "./pages/Home";
 import TextEditor from "./pages/TextEditor";
+import Calendar from "./pages/Calendar";
 import { socket } from "../client-socket";
 import User from "../../../shared/User";
 import "../utilities.css";
@@ -55,6 +56,7 @@ const App = () => {
         handleLogout={handleLogout}
         userId={userId}
       />
+      <Calendar path="/calendar" handleLogin={handleLogin} handleLogout={handleLogout} userId={userId}/>
       <NotFound default={true} />
     </Router>
   );

@@ -1,17 +1,28 @@
-import React from "react";
-import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+// MyDatePicker.tsx
+import React, { useState } from 'react';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
-const DatePicker () => {
+const MyDatePicker: React.FC = () => {
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+
+  const handleDateChange = (date: Date | null): void => {
+    setSelectedDate(date);
+  };
+
   return (
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <DemoContainer components={["DatePicker"]}>
-        <DatePicker label="Basic date picker" />
-      </DemoContainer>
-    </LocalizationProvider>
+    <div>
+      <h1>Enter a date: </h1>
+      <DatePicker
+        selected={selectedDate}
+        onChange={handleDateChange}
+        dateFormat="MMMM d, yyyy"
+        isClearable
+        placeholderText="Select a date"
+      />
+      <p>Fetching any memory entries from the selected date {selectedDate?.toLocaleDateString()}. </p>
+    </div>
   );
-}
+};
 
-export default DatePicker;
+export default MyDatePicker;

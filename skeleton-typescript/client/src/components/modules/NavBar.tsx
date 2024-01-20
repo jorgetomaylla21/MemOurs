@@ -25,6 +25,9 @@ const NavBar = (props: Props) => {
         <Link to="/timeline">
           <div className="nav-icon">Timeline</div>
         </Link>
+        <Link to="/calendar">
+          <div className="nav-icon">Calendar</div>
+        </Link>
         <Link to="/my-feed">
           <div className="nav-icon">My Feed</div>
         </Link>
