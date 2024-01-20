@@ -8,6 +8,7 @@ import NotFound from "./pages/NotFound";
 import Skeleton from "./pages/Home";
 import TextEditor from "./pages/TextEditor";
 import Calendar from "./pages/Calendar";
+import Feed from "./pages/Feed";
 import { socket } from "../client-socket";
 import User from "../../../shared/User";
 import "../utilities.css";
@@ -57,6 +58,7 @@ const App = () => {
         userId={userId}
       />
       <Calendar path="/calendar" handleLogin={handleLogin} handleLogout={handleLogout} userId={userId}/>
+      <Feed path="/my-feed" handleLogin={handleLogin} handleLogout={handleLogout} userId={userId}/>
       <NotFound default={true} />
     </Router>
   );

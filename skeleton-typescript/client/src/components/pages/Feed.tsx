@@ -2,11 +2,13 @@ import React from "react";
 import { GoogleOAuthProvider, CredentialResponse } from "@react-oauth/google";
 
 import "./Home.css";
-import "../../../src/output.css";
 import NavBar from "../modules/NavBar";
 import { RouteComponentProps } from "@reach/router";
 import SideBar from "../modules/SideBar";
-import MyDatePicker from "../modules/DatePicker";
+import Editor from "../modules/Editor";
+
+//TODO(weblab student): REPLACE WITH YOUR OWN CLIENT_ID
+//const GOOGLE_CLIENT_ID = "969378506162-5ltmi54vc1d96lelg5b44slm8c1vbol3.apps.googleusercontent.com";
 
 const GOOGLE_CLIENT_ID = "969378506162-5ltmi54vc1d96lelg5b44slm8c1vbol3.apps.googleusercontent.com";
 
@@ -15,7 +17,7 @@ type Props = RouteComponentProps & {
   handleLogin: (credentialResponse: CredentialResponse) => void;
   handleLogout: () => void;
 };
-const Calendar = (props: Props) => {
+const Feed = (props: Props) => {
   const { handleLogin, handleLogout } = props;
 
   return (
@@ -30,10 +32,12 @@ const Calendar = (props: Props) => {
           </aside>
           <section className="header-content-container">
             <header className="header-container">
-              <h1 className="header-text">Calendar View</h1>
+              <h1 className="header-text">Your Feed</h1>
             </header>
             <main>
-              <MyDatePicker/>
+              <div className="main-content-container">
+                <p>Your beautiful feed content here</p>
+              </div>
             </main>
           </section>
         </div>
@@ -42,4 +46,4 @@ const Calendar = (props: Props) => {
   );
 };
 
-export default Calendar;
+export default Feed;
