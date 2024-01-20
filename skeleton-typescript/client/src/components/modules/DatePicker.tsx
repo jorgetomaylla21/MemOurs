@@ -19,7 +19,8 @@ const MyDatePicker: React.FC = () => {
         dateFormat="MMMM d, yyyy"
         isClearable
         placeholderText="Select a date"
-        withPortal
+        //withPortal
+        inline
       />
       <p>Fetching any memory entries from the selected date {selectedDate?.toLocaleDateString()}. </p>
     </div>
