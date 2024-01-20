@@ -9,10 +9,10 @@ interface TextEditorProps {
 }
 
 const Editor: React.FC<TextEditorProps> = ({ initialText = "" }) => {
-  const permissionOptions = [{ name: "Draft" }, { name: "Private" }, { name: "Public" }];
+  const permissions = [{ name: "Draft" }, { name: "Private" }, { name: "Public" }];
   const [title, setTitle] = useState<string>(initialText);
   const [editorHtml, setEditorHtml] = useState("");
-  const [permissions, setPermissions] = useState(permissionOptions[0]);
+  const [currentPermission, setPermissions] = useState(permissions[0]);
 
   const handleTitleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setTitle(event.target.value);
@@ -64,9 +64,9 @@ const Editor: React.FC<TextEditorProps> = ({ initialText = "" }) => {
           <div className="options-container">
             {/* TO-DO: add onClick that posts data to server */}
             <DropdownOptions
-              selected={permissions}
+              selected={currentPermission}
               setSelected={setPermissions}
-              allOptions={permissionOptions}
+              allOptions={permissions}
             />
             <button className="options-button save-button">Save</button>
           </div>
