@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import MultiSelect from "./MultiSelect";
+import { TagObj } from "./Tag";
 import "./Fields.css";
 
-const Fields = () => {
+type Props = {
+  allTagOptions: TagObj[];
+  activatedTags: TagObj[];
+  setActivatedTags: React.Dispatch<React.SetStateAction<TagObj[]>>;
+};
+
+const Fields = (props: Props) => {
   return (
     <section className="fields-container">
       <ul className="single-field">
@@ -11,7 +18,11 @@ const Fields = () => {
       </ul>
       <ul className="single-field">
         <span className="field-name">Tags</span>
-        <MultiSelect />
+        <MultiSelect
+          allTagOptions={props.allTagOptions}
+          activatedTags={props.activatedTags}
+          setActivatedTags={props.setActivatedTags}
+        />
       </ul>
     </section>
   );

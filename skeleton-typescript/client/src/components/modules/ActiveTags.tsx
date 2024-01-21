@@ -1,26 +1,24 @@
 import React from "react";
 import Tag from "./Tag";
+import { TagObj } from "./Tag";
+import "./Tag.css";
 
-// type Props = {
-//   selected: Array<Option>;
-//   setSelected: React.Dispatch<React.SetStateAction<Option>>;
-//   allOptions: Array<Option>;
-// };
-const allOptions = [
-  { name: "Fun", color: "amber" },
-  { name: "Life", color: "green" },
-  { name: "Entertainment", color: "orange" },
-  { name: "Romance", color: "red" },
-  { name: "Career", color: "blue" },
-  // { name: "Academics", color: "purple" },
-];
+type Props = {
+  activatedTags: TagObj[];
+  setActivatedTags: React.Dispatch<React.SetStateAction<TagObj[]>>;
+};
 
-const ActiveTags = () => {
-  //   const [selected, setSelected] = useState([]);
+const ActiveTags = (props: Props) => {
   return (
     <span>
-      {allOptions.map((option) => (
-        <Tag name={option.name} color={option.color} isActive={true} />
+      {props.activatedTags.map((option) => (
+        <Tag
+          name={option.name}
+          color={option.color}
+          isActive={true}
+          activatedTags={props.activatedTags}
+          setActivatedTags={props.setActivatedTags}
+        />
       ))}
     </span>
   );

@@ -4,6 +4,7 @@ import "react-quill/dist/quill.snow.css";
 import "./Editor.css";
 import DropdownOptions from "./DropdownOptions";
 import Fields from "./Fields";
+import { TagObj } from "./Tag";
 
 interface TextEditorProps {
   initialText?: string;
@@ -11,9 +12,18 @@ interface TextEditorProps {
 
 const Editor: React.FC<TextEditorProps> = ({ initialText = "" }) => {
   const permissions = [{ name: "Draft" }, { name: "Private" }, { name: "Public" }];
+  const tags = [
+    { name: "Fun", color: "amber" },
+    { name: "Life", color: "green" },
+    { name: "Entertainment", color: "orange" },
+    { name: "Romance", color: "red" },
+    { name: "Career", color: "blue" },
+    { name: "Academics", color: "purple" },
+  ];
   const [title, setTitle] = useState<string>(initialText);
   const [editorHtml, setEditorHtml] = useState("");
   const [currentPermission, setPermissions] = useState(permissions[0]);
+  const [activatedTags, setActivatedTags] = useState(new Array<TagObj>());
 
   const handleTitleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setTitle(event.target.value);
@@ -35,7 +45,11 @@ const Editor: React.FC<TextEditorProps> = ({ initialText = "" }) => {
             cols={20}
             placeholder="Title..."
           />
-          <Fields />
+          <Fields
+            allTagOptions={tags}
+            activatedTags={activatedTags}
+            setActivatedTags={setActivatedTags}
+          />
           <section className="h-screen">
             <div className="h-1/2">
               <div className="quill-container">
