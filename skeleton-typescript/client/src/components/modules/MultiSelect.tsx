@@ -66,7 +66,7 @@ const MultiSelect = () => {
                       <>
                         {isSelected ? null : (
                           <div className="item-in-dropdown pl-4">
-                            <Tag name={option.name} color={option.color} />
+                            <Tag name={option.name} color={option.color} isActive={false} />
                           </div>
                         )}
                       </>

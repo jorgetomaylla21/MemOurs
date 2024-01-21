@@ -10,4 +10,9 @@
     px-2 py-1 my-1 mr-2 text-xs font-medium 
     ring-1 ring-inset;
   }
+  .x-mark-container {
+    @apply relative inset-y-0 left-0 
+    flex items-center pl-2 
+    text-gray-400;
+  }
 }

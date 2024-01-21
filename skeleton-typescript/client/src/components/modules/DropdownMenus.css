@@ -29,7 +29,7 @@
     cursor-pointer;
   }
   .item-in-dropdown {
-    @apply relative cursor-default select-none py-2 pl-10 pr-4;
+    @apply relative cursor-pointer select-none py-2 pl-10 pr-4;
   }
   .selected-theme {
     @apply bg-blue-100 text-blue-900;

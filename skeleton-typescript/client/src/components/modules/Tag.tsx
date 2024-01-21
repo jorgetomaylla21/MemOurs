@@ -32,19 +32,18 @@ const classFromColor = new Map([
 type Props = {
   name: string;
   color: string;
+  isActive: boolean;
 };
 
 const Tag = (props: Props) => {
   return (
     <span className={`tag-container ${classFromColor.get(props.color)}`}>
       {props.name}
-      <button
-        className="relative inset-y-0 left-0 
-    flex items-center pl-2 
-    text-gray-400"
-      >
-        <XMarkIcon className="h-4 w-4" aria-hidden="true" />
-      </button>
+      {props.isActive ? (
+        <button className="x-mark-container">
+          <XMarkIcon className="h-4 w-4" aria-hidden="true" />
+        </button>
+      ) : null}
     </span>
   );
 };

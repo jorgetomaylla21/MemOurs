@@ -20,7 +20,7 @@ const ActiveTags = () => {
   return (
     <span>
       {allOptions.map((option) => (
-        <Tag name={option.name} color={option.color} />
+        <Tag name={option.name} color={option.color} isActive={true} />
       ))}
     </span>
   );
