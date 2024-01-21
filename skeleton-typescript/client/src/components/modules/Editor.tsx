@@ -5,12 +5,13 @@ import "./Editor.css";
 import DropdownOptions from "./DropdownOptions";
 import Fields from "./Fields";
 import { TagObj } from "./Tag";
+import { WarningOverlay } from "./WarningOverlay";
 
 interface TextEditorProps {
-  initialText?: string;
+  userId?: string;
 }
 
-const Editor: React.FC<TextEditorProps> = ({ initialText = "" }) => {
+const Editor: React.FC<TextEditorProps> = (props: TextEditorProps) => {
   const permissions = [{ name: "Draft" }, { name: "Private" }, { name: "Public" }];
   const tags = [
     { name: "Fun", color: "amber" },
@@ -20,17 +21,26 @@ const Editor: React.FC<TextEditorProps> = ({ initialText = "" }) => {
     { name: "Career", color: "blue" },
     { name: "Academics", color: "purple" },
   ];
-  const [title, setTitle] = useState<string>(initialText);
+  const [title, setTitle] = useState<string>("");
   const [editorHtml, setEditorHtml] = useState("");
   const [currentPermission, setPermissions] = useState(permissions[0]);
   const [activatedTags, setActivatedTags] = useState(new Array<TagObj>());
+  const [warning, setWarning] = useState(false);
 
   const handleTitleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setTitle(event.target.value);
   };
 
-  const handleChange = (html) => {
+  const handleText = (html) => {
     setEditorHtml(html);
+  };
+
+  const handleSave = () => {
+    if (!props.userId) {
+      setWarning(true);
+    } else {
+      setWarning(false);
+    }
   };
 
   return (
@@ -43,7 +53,7 @@ const Editor: React.FC<TextEditorProps> = ({ initialText = "" }) => {
             onChange={handleTitleChange}
             rows={1}
             cols={20}
-            placeholder="Title..."
+            placeholder="Untitled"
           />
           <Fields
             allTagOptions={tags}
@@ -57,7 +67,7 @@ const Editor: React.FC<TextEditorProps> = ({ initialText = "" }) => {
                   theme="snow"
                   className="vanilla-editor body-editor"
                   value={editorHtml}
-                  onChange={handleChange}
+                  onChange={handleText}
                   placeholder="Start writing about your day..."
                 />
               </div>
@@ -69,7 +79,10 @@ const Editor: React.FC<TextEditorProps> = ({ initialText = "" }) => {
                 setSelected={setPermissions}
                 allOptions={permissions}
               />
-              <button className="config-button save-button">Save</button>
+              <button className="config-button save-button" onClick={handleSave}>
+                Save
+              </button>
+              {warning ? <WarningOverlay open={warning} setOpen={setWarning} /> : null}
             </nav>
           </section>
         </section>

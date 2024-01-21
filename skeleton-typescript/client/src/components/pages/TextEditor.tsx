@@ -36,7 +36,7 @@ const TextEditor = (props: Props) => {
             </header>
             <main>
               <div className="main-content-container">
-                <Editor />
+                <Editor userId={props.userId} />
               </div>
             </main>
           </section>
