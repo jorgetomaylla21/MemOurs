@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .fields-container {
+    @apply w-full bg-white rounded-t-lg;
+  }
+
+  .single-field {
+    @apply flex justify-start 
+    text-xs 
+    w-full px-8 py-1 pt-4;
+  }
+  .field-name {
+    @apply mr-8 w-32 rounded-md py-3 pl-4 text-gray-500 hover:bg-slate-100;
+  }
+  .field-value {
+    @apply w-full rounded-md py-3 pl-4 hover:bg-slate-100;
+  }
+}

@@ -3,6 +3,7 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import "./Editor.css";
 import DropdownOptions from "./DropdownOptions";
+import Fields from "./Fields";
 
 interface TextEditorProps {
   initialText?: string;
@@ -25,52 +26,39 @@ const Editor: React.FC<TextEditorProps> = ({ initialText = "" }) => {
   return (
     <div className="editor-bg">
       <section className="u-center">
-        <textarea
-          className="vanilla-editor title-editor"
-          value={title}
-          onChange={handleTitleChange}
-          rows={10}
-          cols={30}
-          placeholder="Title..."
-        />
-      </section>
-      {/* TO-DO: add input methods for fields */}
-      {/* TO-DO: make fields a component Field that takes name, value */}
-      {/* TO-DO: incorporate a toggle for Field activated and not */}
-      <ul className="u-center">
-        <div className="field-container pt-2 rounded-t-lg">
-          <div className="field-shape field-name">Created</div>
-          <div className="field-shape field-value-activated">04/29/2002</div>
-        </div>
-      </ul>
-      <ul className="u-center">
-        <div className="field-container">
-          <div className="field-shape field-name">Tags</div>
-          <div className="field-shape field-value">Empty</div>
-        </div>
-      </ul>
-      <section className="h-screen">
-        <div className="body-editor-container">
-          <div className="body-editor-subcontainer">
-            <ReactQuill
-              theme="snow" // You can choose different themes (snow, bubble, etc.)
-              className="vanilla-editor body-editor"
-              value={editorHtml}
-              onChange={handleChange}
-            />
-          </div>
-        </div>
-        <nav className="u-center">
-          <div className="options-container">
-            {/* TO-DO: add onClick that posts data to server */}
-            <DropdownOptions
-              selected={currentPermission}
-              setSelected={setPermissions}
-              allOptions={permissions}
-            />
-            <button className="options-button save-button">Save</button>
-          </div>
-        </nav>
+        <section className="w-editor-content flex-col">
+          <textarea
+            className="vanilla-editor title-editor"
+            value={title}
+            onChange={handleTitleChange}
+            rows={1}
+            cols={20}
+            placeholder="Title..."
+          />
+          <Fields />
+          <section className="h-screen">
+            <div className="h-1/2">
+              <div className="quill-container">
+                <ReactQuill
+                  theme="snow"
+                  className="vanilla-editor body-editor"
+                  value={editorHtml}
+                  onChange={handleChange}
+                  placeholder="Start writing about your day..."
+                />
+              </div>
+            </div>
+            <nav className="bottom-nav-container">
+              {/* TO-DO: add onClick that posts data to server */}
+              <DropdownOptions
+                selected={currentPermission}
+                setSelected={setPermissions}
+                allOptions={permissions}
+              />
+              <button className="config-button save-button">Save</button>
+            </nav>
+          </section>
+        </section>
       </section>
     </div>
   );

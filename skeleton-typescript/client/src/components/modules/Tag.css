@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .tag-container {
+    @apply inline-flex items-center 
+    rounded-md 
+    truncate overflow-hidden
+    px-2 py-1 my-1 mr-2 text-xs font-medium 
+    ring-1 ring-inset;
+  }
+}

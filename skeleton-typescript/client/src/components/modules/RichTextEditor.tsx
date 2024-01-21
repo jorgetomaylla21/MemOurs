@@ -1,9 +1,9 @@
-import React from 'react';
+import React from "react";
 // src/components/RichTextEditor.tsx
-import ReactQuill, { Quill as QuillType } from 'react-quill';
-import 'react-quill/dist/quill.snow.css'; // Import the styles
-import 'react-quill/dist/quill.bubble.css'; // Import the styles
-import 'react-quill/dist/quill.core.css'; // Import the styles
+import ReactQuill, { Quill as QuillType } from "react-quill";
+import "react-quill/dist/quill.snow.css"; // Import the styles
+import "react-quill/dist/quill.bubble.css"; // Import the styles
+import "react-quill/dist/quill.core.css"; // Import the styles
 //import './RichTextEditor.css'; // Create your own styles
 
 interface RichTextEditorProps {
@@ -14,18 +14,25 @@ interface RichTextEditorProps {
 const modules = {
   toolbar: [
     [{ header: [1, 2, 3, 4, false] }],
-    ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-    [{ list: 'ordered' }, { list: 'bullet' }],
-    ['link', 'image', 'video'],
-    ['clean'],
+    ["bold", "italic", "underline", "strike", "blockquote"],
+    [{ list: "ordered" }, { list: "bullet" }],
+    ["link", "image", "video"],
+    ["clean"],
   ],
 };
 
 const formats = [
-  'header',
-  'bold', 'italic', 'underline', 'strike', 'blockquote',
-  'list', 'bullet',
-  'link', 'image', 'video',
+  "header",
+  "bold",
+  "italic",
+  "underline",
+  "strike",
+  "blockquote",
+  "list",
+  "bullet",
+  "link",
+  "image",
+  "video",
 ];
 
 const RichTextEditor: React.FC<RichTextEditorProps> = ({ value, onChange }) => {
@@ -40,7 +47,6 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({ value, onChange }) => {
       onChange={handleChange}
       modules={modules}
       formats={formats}
-      style={{ height: "300px" }}
     />
   );
 };
