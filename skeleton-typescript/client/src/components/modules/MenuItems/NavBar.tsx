@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./NavBar.css";
 import { GoogleLogin, googleLogout, CredentialResponse } from "@react-oauth/google";
-import logo from "../../assets/logo.png";
+import logo from "../../../assets/logo.png";
 
 type Props = {
   userId?: string;

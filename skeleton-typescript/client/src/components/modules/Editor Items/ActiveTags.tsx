@@ -11,8 +11,9 @@ type Props = {
 const ActiveTags = (props: Props) => {
   return (
     <span>
-      {props.activatedTags.map((option) => (
+      {props.activatedTags.map((option, i) => (
         <Tag
+          key={i}
           name={option.name}
           color={option.color}
           isActive={true}

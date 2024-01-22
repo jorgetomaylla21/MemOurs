@@ -6,7 +6,7 @@ import DropdownOptions from "./DropdownOptions";
 import Fields from "./Fields";
 import { TagObj } from "./Tag";
 import { WarningOverlay } from "./WarningOverlay";
-import { post } from "../../utilities";
+import { post } from "../../../utilities";
 
 interface TextEditorProps {
   userId?: string;

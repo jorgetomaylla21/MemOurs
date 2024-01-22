@@ -2,8 +2,8 @@ import React from "react";
 import { GoogleOAuthProvider, CredentialResponse } from "@react-oauth/google";
 
 import "./Home.css";
-import NavBar from "../modules/NavBar";
-import SideBar from "../modules/SideBar";
+import NavBar from "../modules/MenuItems/NavBar";
+import SideBar from "../modules/MenuItems/SideBar";
 
 //TODO(weblab student): REPLACE WITH YOUR OWN CLIENT_ID
 //const GOOGLE_CLIENT_ID = "969378506162-5ltmi54vc1d96lelg5b44slm8c1vbol3.apps.googleusercontent.com";
