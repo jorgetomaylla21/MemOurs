@@ -45,7 +45,7 @@ const MultiSelect = (props: Props) => {
                   />
                 </span>
               ) : (
-                <span className="w-full flex justify-start text-start">
+                <span className="flex justify-start text-start">
                   <EmptyField />
                 </span>
               )}

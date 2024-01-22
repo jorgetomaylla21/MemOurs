@@ -1,7 +1,7 @@
 // MyDatePicker.tsx
-import React, { useState } from 'react';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
+import React, { useState } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const MyDatePicker: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
@@ -12,17 +12,13 @@ const MyDatePicker: React.FC = () => {
 
   return (
     <div>
-      <h1>Enter a date: </h1>
       <DatePicker
         selected={selectedDate}
         onChange={handleDateChange}
-        dateFormat="MMMM d, yyyy"
-        isClearable
-        placeholderText="Select a date"
-        //withPortal
-        inline
+        maxDate={new Date()}
+        placeholderText="Date"
+        className="font-mono focus:outline-cyan-900"
       />
-      <p>Fetching any memory entries from the selected date {selectedDate?.toLocaleDateString()}. </p>
     </div>
   );
 };

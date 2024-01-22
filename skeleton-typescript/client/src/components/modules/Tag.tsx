@@ -33,7 +33,7 @@ const Tag = (props: Props) => {
     <span className={`tag-container ${classFromColor.get(props.color)}`}>
       {props.name}
       {props.isActive ? (
-        <button className="x-mark-container z-50" onClick={removeTag}>
+        <button className="x-mark-container z-45" onClick={removeTag}>
           <XMarkIcon className="h-4 w-4" aria-hidden="true" />
         </button>
       ) : null}

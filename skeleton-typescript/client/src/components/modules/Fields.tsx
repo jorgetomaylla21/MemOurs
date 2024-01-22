@@ -1,4 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import MultiSelect from "./MultiSelect";
 import { TagObj } from "./Tag";
 import "./Fields.css";
@@ -10,11 +12,26 @@ type Props = {
 };
 
 const Fields = (props: Props) => {
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+
+  const handleDateChange = (date: Date | null): void => {
+    setSelectedDate(date);
+  };
+
   return (
     <section className="fields-container">
       <ul className="single-field">
         <span className="field-name">Created on</span>
-        <span className="field-value text-black">04/29/2002</span>
+        {/* <span className="field-value text-black">04/29/2002</span> */}
+        <div className="rounded-md hover:bg-slate-100">
+          <DatePicker
+            selected={selectedDate}
+            onChange={handleDateChange}
+            maxDate={new Date()}
+            placeholderText="MM/DD/YYYY"
+            className="field-value focus:outline-slate-400 bg-transparent z-50"
+          />
+        </div>
       </ul>
       <ul className="single-field">
         <span className="field-name">Tags</span>
