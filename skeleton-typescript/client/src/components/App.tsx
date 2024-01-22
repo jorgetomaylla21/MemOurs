@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Router } from "@reach/router";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import { CredentialResponse } from "@react-oauth/google";
 
 import { get, post } from "../utilities";
 import NotFound from "./pages/NotFound";
-import Skeleton from "./pages/Home";
+import Home from "./pages/Home";
 import TextEditor from "./pages/TextEditor";
 import Calendar from "./pages/Calendar";
 import Feed from "./pages/Feed";
@@ -49,18 +49,31 @@ const App = () => {
   // NOTE:
   // All the pages need to have the props extended via RouteComponentProps for @reach/router to work properly. Please use the Skeleton as an example.
   return (
-    <Router>
-      <Skeleton path="/" handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />
-      <TextEditor
-        path="/new-entry"
-        handleLogin={handleLogin}
-        handleLogout={handleLogout}
-        userId={userId}
-      />
-      <Calendar path="/calendar" handleLogin={handleLogin} handleLogout={handleLogout} userId={userId}/>
-      <Feed path="/my-feed" handleLogin={handleLogin} handleLogout={handleLogout} userId={userId}/>
-      <NotFound default={true} />
-    </Router>
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path="/"
+          element={<Home handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />}
+        />
+        <Route
+          path="/new-entry"
+          element={
+            <TextEditor handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />
+          }
+        />
+        <Route
+          path="/calendar"
+          element={
+            <Calendar handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />
+          }
+        />
+        <Route
+          path="/my-feed"
+          element={<Feed handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />}
+        />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </BrowserRouter>
   );
 };
 

@@ -22,7 +22,6 @@ const Fields = (props: Props) => {
     <section className="fields-container">
       <ul className="single-field">
         <span className="field-name">Created on</span>
-        {/* <span className="field-value text-black">04/29/2002</span> */}
         <div className="rounded-md hover:bg-slate-100">
           <DatePicker
             selected={selectedDate}
