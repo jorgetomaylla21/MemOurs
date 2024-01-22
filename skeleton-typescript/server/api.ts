@@ -2,7 +2,8 @@ import express from "express";
 import auth from "./auth";
 import socketManager from "./server-socket";
 
-const JournalEntry = require("./models/JournalEntry");
+import JournalEntry from "./models/JournalEntry";
+import User from "./models/User";
 
 const router = express.Router();
 
@@ -28,7 +29,7 @@ router.post("/initsocket", (req, res) => {
 // | write your API methods below!|
 // |------------------------------|
 
-router.post("/save-journal", auth.ensureLoggedIn, (req, res) => {
+router.post("/journal", auth.ensureLoggedIn, (req, res) => {
   if (!req.user) {
     res.send({});
   }
@@ -51,6 +52,26 @@ router.post("/save-journal", auth.ensureLoggedIn, (req, res) => {
     permissions: req.body.permissions,
   });
   newEntry.save().then((entry) => res.send(entry));
+});
+
+router.get("/public-journals", (req, res) => {
+  JournalEntry.find({ permissions: "Public" }).then((entry) => {
+    res.send(entry);
+  });
+});
+
+router.get("/private-journals", auth.ensureLoggedIn, (req, res) => {
+  if (!req.user) {
+    res.send({});
+  }
+  const author = new User({
+    _id: req.user?._id,
+    name: req.user?.name,
+  });
+
+  JournalEntry.find({ permissions: "Private", author: author }).then((entry) => {
+    res.send(entry);
+  });
 });
 
 // anything else falls to this "not found" case

@@ -26,11 +26,11 @@ const JournalEntrySchema = new Schema({
   content: String,
   dateMentioned: Date,
   taggedPeople: Array<{
-    _id: String;
-    name: String;
+    _id: string;
+    name: string;
   }>,
   createdAt: Date,
-  tags: Array<String>,
+  tags: Array<string>,
   permissions: String,
 });
 

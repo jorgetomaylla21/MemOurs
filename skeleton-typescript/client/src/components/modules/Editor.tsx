@@ -6,6 +6,7 @@ import DropdownOptions from "./DropdownOptions";
 import Fields from "./Fields";
 import { TagObj } from "./Tag";
 import { WarningOverlay } from "./WarningOverlay";
+import { post } from "../../utilities";
 
 interface TextEditorProps {
   userId?: string;
@@ -25,6 +26,7 @@ const Editor: React.FC<TextEditorProps> = (props: TextEditorProps) => {
   const [editorHtml, setEditorHtml] = useState("");
   const [currentPermission, setPermissions] = useState(permissions[0]);
   const [activatedTags, setActivatedTags] = useState(new Array<TagObj>());
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [warning, setWarning] = useState(false);
 
   const handleTitleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -40,6 +42,20 @@ const Editor: React.FC<TextEditorProps> = (props: TextEditorProps) => {
       setWarning(true);
     } else {
       setWarning(false);
+      // save to database
+      const body = {
+        title: title,
+        content: editorHtml,
+        dateMentioned: selectedDate?.toLocaleDateString() ?? "",
+        taggedPeople: [],
+        createdAt: new Date().toLocaleDateString(),
+        tags: activatedTags.map((tag) => tag.name),
+        permissions: currentPermission.name,
+      };
+      console.log("sending body...");
+      console.log(selectedDate?.toLocaleDateString());
+      console.log(body);
+      post("/api/journal", body).then((entry) => console.log(entry));
     }
   };
 
@@ -59,6 +75,8 @@ const Editor: React.FC<TextEditorProps> = (props: TextEditorProps) => {
             allTagOptions={tags}
             activatedTags={activatedTags}
             setActivatedTags={setActivatedTags}
+            selectedDate={selectedDate}
+            setSelectedDate={setSelectedDate}
           />
           <section className="h-screen">
             <div className="h-1/2">
