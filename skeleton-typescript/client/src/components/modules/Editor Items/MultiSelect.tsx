@@ -4,14 +4,15 @@ import { Listbox, Transition } from "@headlessui/react";
 import ActiveTags from "./ActiveTags";
 import EmptyField from "./EmptyField";
 import Tag from "./Tag";
-import { TagObj } from "./Tag";
 import "./DropdownMenus.css";
 import "./MultiSelect.css";
 
+import { TagOption } from "./TagOption";
+
 type Props = {
-  allTagOptions: TagObj[];
-  activatedTags: TagObj[];
-  setActivatedTags: React.Dispatch<React.SetStateAction<TagObj[]>>;
+  allTagOptions: TagOption[];
+  activatedTags: TagOption[];
+  setActivatedTags: React.Dispatch<React.SetStateAction<TagOption[]>>;
 };
 
 const MultiSelect = (props: Props) => {
@@ -19,9 +20,9 @@ const MultiSelect = (props: Props) => {
     props.setActivatedTags([...props.activatedTags, option]);
   };
 
-  const optionIsSelected = (option: TagObj): boolean => {
+  const optionIsSelected = (option: TagOption): boolean => {
     return props.activatedTags.reduce(
-      (initialBool: boolean, selectedOption: TagObj) =>
+      (initialBool: boolean, selectedOption: TagOption) =>
         initialBool || selectedOption.name === option.name,
       false
     );
@@ -71,8 +72,7 @@ const MultiSelect = (props: Props) => {
                         {isSelected ? null : (
                           <div className="item-in-dropdown pl-4">
                             <Tag
-                              name={option.name}
-                              color={option.color}
+                              tag={option}
                               activatedTags={[]}
                               setActivatedTags={() => {}}
                               isActive={false}

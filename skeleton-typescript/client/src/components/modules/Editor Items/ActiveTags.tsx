@@ -1,11 +1,12 @@
 import React from "react";
 import Tag from "./Tag";
-import { TagObj } from "./Tag";
 import "./Tag.css";
 
+import { TagOption } from "./TagOption";
+
 type Props = {
-  activatedTags: TagObj[];
-  setActivatedTags: React.Dispatch<React.SetStateAction<TagObj[]>>;
+  activatedTags: TagOption[];
+  setActivatedTags: React.Dispatch<React.SetStateAction<TagOption[]>>;
 };
 
 const ActiveTags = (props: Props) => {
@@ -14,8 +15,7 @@ const ActiveTags = (props: Props) => {
       {props.activatedTags.map((option, i) => (
         <Tag
           key={i}
-          name={option.name}
-          color={option.color}
+          tag={option}
           isActive={true}
           activatedTags={props.activatedTags}
           setActivatedTags={props.setActivatedTags}

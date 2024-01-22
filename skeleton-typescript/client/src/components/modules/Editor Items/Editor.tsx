@@ -4,9 +4,9 @@ import "react-quill/dist/quill.snow.css";
 import "./Editor.css";
 import DropdownOptions from "./DropdownOptions";
 import Fields from "./Fields";
-import { TagObj } from "./Tag";
 import { WarningOverlay } from "./WarningOverlay";
 import { post } from "../../../utilities";
+import { TagOption } from "./TagOption";
 
 interface TextEditorProps {
   userId?: string;
@@ -14,18 +14,13 @@ interface TextEditorProps {
 
 const Editor: React.FC<TextEditorProps> = (props: TextEditorProps) => {
   const permissions = [{ name: "Draft" }, { name: "Private" }, { name: "Public" }];
-  const tags = [
-    { name: "Fun", color: "amber" },
-    { name: "Life", color: "green" },
-    { name: "Entertainment", color: "orange" },
-    { name: "Romance", color: "red" },
-    { name: "Career", color: "blue" },
-    { name: "Academics", color: "purple" },
-  ];
+  const tags = ["Fun", "Life", "Entertainment", "Romance", "Career", "Academics"].map(
+    (name) => new TagOption(name)
+  );
   const [title, setTitle] = useState<string>("");
   const [editorHtml, setEditorHtml] = useState("");
   const [currentPermission, setPermissions] = useState(permissions[0]);
-  const [activatedTags, setActivatedTags] = useState(new Array<TagObj>());
+  const [activatedTags, setActivatedTags] = useState(new Array<TagOption>());
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [warning, setWarning] = useState(false);
 
@@ -80,7 +75,7 @@ const Editor: React.FC<TextEditorProps> = (props: TextEditorProps) => {
           />
           <section className="h-screen">
             <div className="h-1/2">
-              <div className="quill-container">
+              <div className="quill-container caret-blue-700">
                 <ReactQuill
                   theme="snow"
                   className="vanilla-editor body-editor"

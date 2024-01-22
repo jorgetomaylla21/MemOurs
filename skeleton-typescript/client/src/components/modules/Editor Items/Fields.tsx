@@ -2,13 +2,14 @@ import React from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import MultiSelect from "./MultiSelect";
-import { TagObj } from "./Tag";
 import "./Fields.css";
 
+import { TagOption } from "./TagOption";
+
 type Props = {
-  allTagOptions: TagObj[];
-  activatedTags: TagObj[];
-  setActivatedTags: React.Dispatch<React.SetStateAction<TagObj[]>>;
+  allTagOptions: TagOption[];
+  activatedTags: TagOption[];
+  setActivatedTags: React.Dispatch<React.SetStateAction<TagOption[]>>;
   selectedDate: Date | null;
   setSelectedDate: React.Dispatch<React.SetStateAction<Date | null>>;
 };
