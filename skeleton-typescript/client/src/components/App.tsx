@@ -7,6 +7,7 @@ import { get, post } from "../utilities";
 import NotFound from "./pages/NotFound";
 import Home from "./pages/Home";
 import TextEditor from "./pages/TextEditor";
+import TimelinePage from "./pages/TimelinePage";
 import Calendar from "./pages/Calendar";
 import Feed from "./pages/Feed";
 import { socket } from "../client-socket";
@@ -59,6 +60,12 @@ const App = () => {
           path="/new-entry"
           element={
             <TextEditor handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />
+          }
+        />
+        <Route
+          path="/timeline"
+          element={
+            <TimelinePage handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />
           }
         />
         <Route
