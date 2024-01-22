@@ -4,7 +4,7 @@
 
 @layer components {
   .multi-select-container {
-    @apply rounded-md bg-white hover:bg-slate-100 w-full;
+    @apply rounded-md hover:bg-slate-100 w-full;
   }
   .display-multi-items {
     @apply pl-2 py-1 flex justify-start;

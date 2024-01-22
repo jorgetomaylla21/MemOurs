@@ -5,10 +5,8 @@
 @layer components {
   /* SideBar */
   .sidebar-container {
-    @apply h-full bg-white 
-    border-r border-gray-300 
-    hover:bg-gray-50
-    rounded-r-md
+    @apply h-full bg-white dark:bg-gray-800 dark:text-white
+    hover:bg-gray-50 dark:hover:bg-gray-700 opacity-[97%]
     p-2 text-sm;
   }
 
@@ -27,12 +25,12 @@
   .profile-name {
     @apply text-center 
     font-mono font-semibold
-    group-hover:text-blue-900;
+    group-hover:text-blue-900 dark:group-hover:text-white;
   }
 
   /* StatsCard */
   .statscard-container {
-    @apply group-hover:text-blue-900
+    @apply group-hover:text-blue-900 dark:group-hover:text-white
     px-2;
   }
   .stats-header {
