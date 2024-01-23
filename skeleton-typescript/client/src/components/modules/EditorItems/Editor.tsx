@@ -41,7 +41,7 @@ const Editor: React.FC<TextEditorProps> = (props: TextEditorProps) => {
       const body = {
         title: title,
         content: editorHtml,
-        dateMentioned: selectedDate,
+        dateMentioned: new Date(selectedDate ?? new Date()),
         taggedPeople: [],
         createdAt: new Date(),
         tags: activatedTags.map((tag) => tag.name),

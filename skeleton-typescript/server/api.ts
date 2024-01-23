@@ -46,9 +46,9 @@ router.post("/journal", auth.ensureLoggedIn, (req, res) => {
     author: newAuthor,
     title: req.body.title,
     content: req.body.content,
-    dateMentioned: req.body.dateMentioned,
+    dateMentioned: new Date(req.body.dateMentioned),
     taggedPeople: newTaggedPeople,
-    createdAt: req.body.createdAt,
+    createdAt: new Date(req.body.createdAt),
     tags: req.body.tags,
     permissions: req.body.permissions,
   });

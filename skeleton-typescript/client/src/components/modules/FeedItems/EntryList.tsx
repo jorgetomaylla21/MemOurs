@@ -112,7 +112,7 @@ export const EntryList = (props: Props) => {
           // sort by date of event
           .sort(
             (a: JournalEntry, b: JournalEntry) =>
-              a.dateMentioned.getDate() - b.dateMentioned.getDate()
+              new Date(a.dateMentioned).getDate() - new Date(b.dateMentioned).getDate()
           )
           .map((entry: JournalEntry) => (
             <ul className="pb-2">
