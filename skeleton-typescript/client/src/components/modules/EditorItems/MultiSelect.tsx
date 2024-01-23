@@ -1,13 +1,13 @@
 import React from "react";
 import { Fragment } from "react";
 import { Listbox, Transition } from "@headlessui/react";
-import ActiveTags from "./ActiveTags";
 import EmptyField from "./EmptyField";
 import Tag from "./Tag";
 import "./DropdownMenus.css";
 import "./MultiSelect.css";
 
 import { TagOption } from "./TagOption";
+import MultipleTags from "./MultipleTags";
 
 type Props = {
   allTagOptions: TagOption[];
@@ -40,9 +40,10 @@ const MultiSelect = (props: Props) => {
             <div className="multi-select-container">
               {anyTags() ? (
                 <span className="display-multi-items">
-                  <ActiveTags
-                    activatedTags={props.activatedTags}
-                    setActivatedTags={props.setActivatedTags}
+                  <MultipleTags
+                    tags={props.activatedTags}
+                    setTags={props.setActivatedTags}
+                    isActive={true}
                   />
                 </span>
               ) : (

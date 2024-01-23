@@ -5,7 +5,7 @@ import "./Home.css";
 import "../../../src/output.css";
 import NavBar from "../modules/MenuItems/NavBar";
 import SideBar from "../modules/MenuItems/SideBar";
-import MyDatePicker from "../modules/Editor Items/DatePicker";
+import MyDatePicker from "../modules/EditorItems/DatePicker";
 
 const GOOGLE_CLIENT_ID = "969378506162-5ltmi54vc1d96lelg5b44slm8c1vbol3.apps.googleusercontent.com";
 

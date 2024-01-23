@@ -86,7 +86,6 @@ const Editor: React.FC<TextEditorProps> = (props: TextEditorProps) => {
               </div>
             </div>
             <nav className="bottom-nav-container">
-              {/* TO-DO: add onClick that posts data to server */}
               <DropdownOptions
                 selected={currentPermission}
                 setSelected={setPermissions}
