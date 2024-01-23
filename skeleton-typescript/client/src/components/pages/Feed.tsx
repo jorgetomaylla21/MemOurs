@@ -5,6 +5,8 @@ import "./Home.css";
 import NavBar from "../modules/MenuItems/NavBar";
 import SideBar from "../modules/MenuItems/SideBar";
 import { SingleEntry } from "../modules/FeedItems/SingleEntry";
+import { EntryList } from "../modules/FeedItems/EntryList";
+import { ToggleView } from "../modules/FeedItems/ToggleView";
 
 //TODO(weblab student): REPLACE WITH YOUR OWN CLIENT_ID
 //const GOOGLE_CLIENT_ID = "969378506162-5ltmi54vc1d96lelg5b44slm8c1vbol3.apps.googleusercontent.com";
@@ -35,7 +37,8 @@ const Feed = (props: Props) => {
             </header>
             <main>
               <div className="main-content-container">
-                <SingleEntry />
+                {/* <EntryList /> */}
+                <ToggleView />
               </div>
             </main>
           </section>

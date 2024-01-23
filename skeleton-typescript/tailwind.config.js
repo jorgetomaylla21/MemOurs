@@ -7,6 +7,7 @@ module.exports = {
     "./client/src/components/**/*.{html,js,ts,tsx}",
     "./client/src/components/pages/**/*.{html,js,ts,tsx}",
     "./client/src/components/modules/**/*.{html,js,ts,tsx}",
+    "./client/src/components/modules/FeedItems/**/*.{html,js,ts,tsx}",
   ],
   theme: {
     extend: {},
