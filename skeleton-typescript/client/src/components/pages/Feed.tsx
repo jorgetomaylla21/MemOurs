@@ -38,7 +38,11 @@ const Feed = (props: Props) => {
             <main>
               <div className="main-content-container">
                 {/* <EntryList /> */}
-                <ToggleView />
+                {!props.userId ? (
+                  <p>Sign in to view content</p>
+                ) : (
+                  <ToggleView userId={props.userId} />
+                )}
               </div>
             </main>
           </section>

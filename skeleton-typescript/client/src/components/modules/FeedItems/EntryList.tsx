@@ -1,11 +1,10 @@
-import React from "react";
-import DOMPurify from "dompurify";
-import { TagOption } from "../EditorItems/TagOption";
-import { ArrowRightIcon } from "@heroicons/react/20/solid";
+import React, { useState, useEffect } from "react";
 import "./SingleEntry.css";
 import JournalEntry from "../../../../../shared/JournalEntry";
 import JournalEntryModel from "../../../../../server/models/JournalEntry";
 import { SingleEntry } from "./SingleEntry";
+import { DocType } from "./ToggleView";
+import { get } from "../../../utilities";
 
 const example: JournalEntry[] = [
   new JournalEntryModel({
@@ -79,14 +78,37 @@ const example: JournalEntry[] = [
   }),
 ];
 
-export const EntryList = () => {
-  // Sanitize the HTML content
-  //   const sanitizedHtml = DOMPurify.sanitize(example.content);
-  //   const tags = example.tags.map((name) => new TagOption(name));
+type Props = {
+  userId?: string;
+  docType: DocType;
+};
+
+export const EntryList = (props: Props) => {
+  const [activeFeed, setActiveFeed] = useState({
+    recipient: props.userId,
+    entries: new Array<JournalEntry>(),
+  });
+
+  const loadEntries = () => {
+    get("/api/journal", { permissions: props.docType }).then((entries) => {
+      console.log("ENTRIES:");
+      console.log(props.docType);
+      console.log(entries);
+      setActiveFeed({
+        recipient: props.userId,
+        entries: entries,
+      });
+    });
+  };
+
+  useEffect(() => {
+    loadEntries();
+  }, []);
+
   return (
-    <div className="c-center bg-gray-100 dark:bg-slate-400">
+    <div className="c-center">
       <section className="pt-2">
-        {example
+        {activeFeed.entries
           // sort by date of event
           .sort(
             (a: JournalEntry, b: JournalEntry) =>
@@ -94,7 +116,7 @@ export const EntryList = () => {
           )
           .map((entry: JournalEntry) => (
             <ul className="pb-2">
-              <SingleEntry entry={entry} />
+              <SingleEntry entry={entry} docType={props.docType} />
             </ul>
           ))}
       </section>

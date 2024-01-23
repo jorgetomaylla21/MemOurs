@@ -4,6 +4,7 @@ import socketManager from "./server-socket";
 
 import JournalEntry from "./models/JournalEntry";
 import User from "./models/User";
+import assert = require("assert");
 
 const router = express.Router();
 
@@ -54,13 +55,7 @@ router.post("/journal", auth.ensureLoggedIn, (req, res) => {
   newEntry.save().then((entry) => res.send(entry));
 });
 
-router.get("/public-journals", (req, res) => {
-  JournalEntry.find({ permissions: "Public" }).then((entry) => {
-    res.send(entry);
-  });
-});
-
-router.get("/private-journals", auth.ensureLoggedIn, (req, res) => {
+router.get("/journal", auth.ensureLoggedIn, (req, res) => {
   if (!req.user) {
     res.send({});
   }
@@ -68,8 +63,8 @@ router.get("/private-journals", auth.ensureLoggedIn, (req, res) => {
     _id: req.user?._id,
     name: req.user?.name,
   });
-
-  JournalEntry.find({ permissions: "Private", author: author }).then((entry) => {
+  const permissions = req.query.permissions?.toString();
+  JournalEntry.find({ permissions: permissions }).then((entry) => {
     res.send(entry);
   });
 });

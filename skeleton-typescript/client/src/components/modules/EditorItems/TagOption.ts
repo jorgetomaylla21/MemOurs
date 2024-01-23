@@ -12,7 +12,6 @@ export class TagOption {
 
   constructor(name: string) {
     this.name = name;
-    console.log(TagOption.tagToTailwind.get(name));
     this.color = TagOption.tagToTailwind.get(name) ?? "";
   }
 }
