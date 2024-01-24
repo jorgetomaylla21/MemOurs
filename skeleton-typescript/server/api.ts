@@ -63,9 +63,16 @@ router.get("/journal", auth.ensureLoggedIn, (req, res) => {
     name: req.user?.name,
   });
   const permissions = req.query.permissions?.toString();
-  JournalEntry.find({ permissions: permissions }).then((entry) => {
-    res.send(entry);
-  });
+  const isPublic = permissions === "Public";
+  if (isPublic) {
+    JournalEntry.find({ permissions: permissions }).then((entry) => {
+      res.send(entry);
+    });
+  } else {
+    JournalEntry.find({ permissions: permissions }).then((entry) => {
+      res.send(entry.filter((entry) => entry.author._id == author._id));
+    });
+  }
 });
 
 router.get("/entry/:entryId", auth.ensureLoggedIn, async (req, res) => {
