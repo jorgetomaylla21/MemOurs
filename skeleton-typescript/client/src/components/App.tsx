@@ -17,6 +17,7 @@ import EntryPage from "./pages/EntryPage";
 
 const App = () => {
   const [userId, setUserId] = useState<string | undefined>(undefined);
+  const [userName, setUserName] = useState<string | undefined>(undefined);
 
   useEffect(() => {
     get("/api/whoami")
@@ -24,6 +25,7 @@ const App = () => {
         if (user._id) {
           // TRhey are registed in the database and currently logged in.
           setUserId(user._id);
+          setUserName(user.name);
         }
       })
       .then(() =>
@@ -39,6 +41,7 @@ const App = () => {
     console.log(`Logged in as ${decodedCredential.name}`);
     post("/api/login", { token: userToken }).then((user) => {
       setUserId(user._id);
+      setUserName(user.name);
       post("/api/initsocket", { socketid: socket.id });
     });
   };
@@ -70,6 +73,7 @@ const App = () => {
         handleLogin={handleLogin}
         handleLogout={handleLogout}
         userId={userId}
+        userName={userName}
         entry={entry}
       />
     );
@@ -79,29 +83,58 @@ const App = () => {
       <Routes>
         <Route
           path="/"
-          element={<Home handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />}
+          element={
+            <Home
+              handleLogin={handleLogin}
+              handleLogout={handleLogout}
+              userId={userId}
+              userName={userName}
+            />
+          }
         />
         <Route
           path="/new-entry"
           element={
-            <TextEditor handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />
+            <TextEditor
+              handleLogin={handleLogin}
+              handleLogout={handleLogout}
+              userId={userId}
+              userName={userName}
+            />
           }
         />
         <Route
           path="/timeline"
           element={
-            <TimelinePage handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />
+            <TimelinePage
+              handleLogin={handleLogin}
+              handleLogout={handleLogout}
+              userId={userId}
+              userName={userName}
+            />
           }
         />
         <Route
           path="/calendar"
           element={
-            <Calendar handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />
+            <Calendar
+              handleLogin={handleLogin}
+              handleLogout={handleLogout}
+              userId={userId}
+              userName={userName}
+            />
           }
         />
         <Route
           path="/my-feed"
-          element={<Feed handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />}
+          element={
+            <Feed
+              handleLogin={handleLogin}
+              handleLogout={handleLogout}
+              userId={userId}
+              userName={userName}
+            />
+          }
         />
         <Route path="/entry/:entryId" element={<ReadOnlyRoute />} />
         <Route path="*" element={<NotFound />} />

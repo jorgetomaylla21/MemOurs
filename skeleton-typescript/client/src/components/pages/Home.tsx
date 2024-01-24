@@ -11,6 +11,7 @@ export const GOOGLE_CLIENT_ID =
 
 export type PageProps = {
   userId?: string;
+  userName?: string;
   handleLogin: (credentialResponse: CredentialResponse) => void;
   handleLogout: () => void;
 };
@@ -25,7 +26,7 @@ const Skeleton = (props: PageProps) => {
         </header>
         <div className="sidebar-content-container">
           <aside className="sidebar-page-container">
-            <SideBar />
+            <SideBar userName={props.userName} />
           </aside>
           <section className="header-content-container">
             <header className="header-container">

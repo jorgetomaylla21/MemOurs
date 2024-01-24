@@ -21,7 +21,7 @@ const EntryPage = (props: Props) => {
         </header>
         <div className="sidebar-content-container">
           <aside className="sidebar-page-container">
-            <SideBar />
+            <SideBar userName={props.userName} />
           </aside>
           <section className="header-content-container">
             <header className="header-container">

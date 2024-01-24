@@ -1,8 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./SideBar.css";
 
-const ProfileCard = () => {
-  const userName = "Saul Vega Sauceda";
+type Props = {
+  userName?: string;
+};
+const ProfileCard = (props: Props) => {
+  const [userName, setUserName] = useState("No User");
+
+  useEffect(() => {
+    const display = props.userName ?? "No user";
+    setUserName(display);
+  }, [props.userName]);
+
   return (
     <section className="px-4 pb-8">
       <div className="profilecard-container">

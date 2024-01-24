@@ -4,6 +4,7 @@ import "./SideBar.css";
 const StatsCard = () => {
   return (
     <section className="statscard-container">
+      <div className="stats-header">Fake data for now:</div>
       <div className="stats-header">Stats</div>
       <div className="stats-entry">
         <div className="stats-type">Memories</div>
