@@ -5,6 +5,7 @@ import "./Home.css";
 import "../../../src/output.css";
 import NavBar from "../modules/MenuItems/NavBar";
 import SideBar from "../modules/MenuItems/SideBar";
+import { Info } from "../modules/HomeItems/Info";
 
 export const GOOGLE_CLIENT_ID =
   "969378506162-5ltmi54vc1d96lelg5b44slm8c1vbol3.apps.googleusercontent.com";
@@ -29,11 +30,13 @@ const Skeleton = (props: PageProps) => {
             <SideBar userName={props.userName} />
           </aside>
           <section className="header-content-container">
-            <header className="header-container">
+            <header className="header-container fixed top-[76px] left-[200px] z-50">
               <h1 className="header-text">MemOurs</h1>
             </header>
             <main>
-              <div className="main-content-container">content here</div>
+              <div className="main-content-container">
+                <Info />
+              </div>
             </main>
           </section>
         </div>
