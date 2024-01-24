@@ -1,14 +1,26 @@
 import React from "react";
 import { Fragment, useRef } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
+import { ExclamationTriangleIcon, DocumentCheckIcon } from "@heroicons/react/24/outline";
+import "./MessageOverlay.css";
+
+export type Message = {
+  header: string;
+  details: string;
+};
 
 type Props = {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  message: Message;
+  isWarning: boolean;
 };
-export const WarningOverlay = (props: Props) => {
+
+export const MessageOverlay = (props: Props) => {
   const cancelButtonRef = useRef(null);
+  const iconColor = props.isWarning
+    ? "bg-red-600 hover:bg-red-500"
+    : "bg-green-600 hover:bg-green-500";
 
   return (
     <Transition.Root show={props.open} as={Fragment}>
@@ -41,37 +53,42 @@ export const WarningOverlay = (props: Props) => {
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
-                <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+              <Dialog.Panel className="dialogue-panel">
+                <div className="message-container">
                   <div className="sm:flex sm:items-start">
-                    <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
-                      <ExclamationTriangleIcon
-                        className="h-6 w-6 text-red-600"
-                        aria-hidden="true"
-                      />
-                    </div>
-                    <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-                      <Dialog.Title
-                        as="h3"
-                        className="text-base font-semibold leading-6 text-gray-900"
-                      >
-                        Login to account
+                    {/* warning or saved icon */}
+                    {props.isWarning ? (
+                      <div className="icon-container bg-red-100">
+                        <ExclamationTriangleIcon
+                          className="icon-size text-red-600"
+                          aria-hidden="true"
+                        />{" "}
+                      </div>
+                    ) : (
+                      <div className="icon-container bg-green-100">
+                        <DocumentCheckIcon
+                          className="icon-size text-green-600"
+                          aria-hidden="true"
+                        />
+                      </div>
+                    )}
+                    <div className="message-header-container">
+                      <Dialog.Title as="h3" className="message-header">
+                        {props.message.header}
                       </Dialog.Title>
                       <div className="mt-2">
-                        <p className="text-sm text-gray-500">
-                          You must login in order to perform this action.
-                        </p>
+                        <p className="message-details">{props.message.details}</p>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                <div className="bottom-nav-container">
                   <button
                     type="button"
-                    className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
+                    className={`ok-button ${iconColor}`}
                     onClick={() => props.setOpen(false)}
                   >
-                    Okay
+                    OK
                   </button>
                 </div>
               </Dialog.Panel>

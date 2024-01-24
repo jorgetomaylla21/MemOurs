@@ -4,7 +4,7 @@ import "react-quill/dist/quill.snow.css";
 import "./Editor.css";
 import DropdownOptions from "./DropdownOptions";
 import Fields from "./Fields";
-import { WarningOverlay } from "./WarningOverlay";
+import { MessageOverlay } from "./MessageOverlay";
 import { post } from "../../../utilities";
 import { TagOption } from "./TagOption";
 
@@ -23,6 +23,16 @@ const Editor: React.FC<TextEditorProps> = (props: TextEditorProps) => {
   const [activatedTags, setActivatedTags] = useState(new Array<TagOption>());
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [warning, setWarning] = useState(false);
+  const [saveDisplay, setSaveDisplay] = useState(false);
+
+  const warningMessage = {
+    header: "Login to account",
+    details: "You must login in order to perform this action.",
+  };
+  const saveMessage = {
+    header: "Saved!",
+    details: "Your journal was succefully saved.",
+  };
 
   const handleTitleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setTitle(event.target.value);
@@ -36,7 +46,6 @@ const Editor: React.FC<TextEditorProps> = (props: TextEditorProps) => {
     if (!props.userId) {
       setWarning(true);
     } else {
-      setWarning(false);
       // save to database
       const body = {
         title: title,
@@ -47,10 +56,9 @@ const Editor: React.FC<TextEditorProps> = (props: TextEditorProps) => {
         tags: activatedTags.map((tag) => tag.name),
         permissions: currentPermission.name,
       };
-      console.log("sending body...");
-      console.log(selectedDate?.toLocaleDateString());
-      console.log(body);
-      post("/api/journal", body).then((entry) => console.log(entry));
+      post("/api/journal", body).then((entry) => {
+        setSaveDisplay(true);
+      });
     }
   };
 
@@ -86,15 +94,32 @@ const Editor: React.FC<TextEditorProps> = (props: TextEditorProps) => {
               </div>
             </div>
             <nav className="bottom-nav-container">
+              <button className="config-button save-button" onClick={handleSave}>
+                Save
+              </button>
+              {/* Show must sign in overlay */}
+              {warning ? (
+                <MessageOverlay
+                  open={warning}
+                  setOpen={setWarning}
+                  message={warningMessage}
+                  isWarning={true}
+                />
+              ) : null}
+              {/* Show saved overlay */}
+              {saveDisplay ? (
+                <MessageOverlay
+                  open={saveDisplay}
+                  setOpen={setSaveDisplay}
+                  message={saveMessage}
+                  isWarning={false}
+                />
+              ) : null}
               <DropdownOptions
                 selected={currentPermission}
                 setSelected={setPermissions}
                 allOptions={permissions}
               />
-              <button className="config-button save-button" onClick={handleSave}>
-                Save
-              </button>
-              {warning ? <WarningOverlay open={warning} setOpen={setWarning} /> : null}
             </nav>
           </section>
         </section>
