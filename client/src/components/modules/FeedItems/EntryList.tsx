@@ -38,9 +38,9 @@ export const EntryList = (props: Props) => {
             (a: JournalEntry, b: JournalEntry) =>
               new Date(a.dateMentioned).getDate() - new Date(b.dateMentioned).getDate()
           )
-          .map((entry: JournalEntry) => (
+          .map((entry: JournalEntry, key) => (
             <ul className="mb-2">
-              <SingleEntry entry={entry} readOnly={false} />
+              <SingleEntry key={key} entry={entry} readOnly={false} />
             </ul>
           ))}
       </section>

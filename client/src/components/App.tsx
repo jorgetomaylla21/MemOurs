@@ -51,33 +51,33 @@ const App = () => {
     post("/api/logout");
   };
 
-  const ReadOnlyRoute = () => {
-    // Fetch entryId from the URL params
-    const { entryId } = useParams<{ entryId: string }>();
-    const [entry, setEntry] = useState<JournalEntry | null>(null);
+  // const ReadOnlyRoute = () => {
+  //   // Fetch entryId from the URL params
+  //   const { entryId } = useParams<{ entryId: string }>();
+  //   const [entry, setEntry] = useState<JournalEntry | null>(null);
 
-    const fetchEntry = () => {
-      get(`/api/entry/${entryId}`, { entryId: entryId }).then((entry: JournalEntry) =>
-        setEntry(entry)
-      );
-    };
+  //   const fetchEntry = () => {
+  //     get(`/api/entry/${entryId}`, { entryId: entryId }).then((entry: JournalEntry) =>
+  //       setEntry(entry)
+  //     );
+  //   };
 
-    useEffect(fetchEntry, [entryId]);
+  //   useEffect(fetchEntry, [entryId]);
 
-    if (!entry) {
-      return null;
-    }
-    // Render SingleEntry component with the fetched entry
-    return (
-      <EntryPage
-        handleLogin={handleLogin}
-        handleLogout={handleLogout}
-        userId={userId}
-        userName={userName}
-        entry={entry}
-      />
-    );
-  };
+  //   if (!entry) {
+  //     return null;
+  //   }
+  //   // Render SingleEntry component with the fetched entry
+  //   return (
+  //     <EntryPage
+  //       handleLogin={handleLogin}
+  //       handleLogout={handleLogout}
+  //       userId={userId}
+  //       userName={userName}
+  //       entry={entry}
+  //     />
+  //   );
+  // };
   return (
     <BrowserRouter>
       <Routes>
@@ -136,7 +136,17 @@ const App = () => {
             />
           }
         />
-        <Route path="/entry/:entryId" element={<ReadOnlyRoute />} />
+        <Route
+          path="/entry/:entryId"
+          element={
+            <EntryPage
+              handleLogin={handleLogin}
+              handleLogout={handleLogout}
+              userId={userId}
+              userName={userName}
+            />
+          }
+        />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

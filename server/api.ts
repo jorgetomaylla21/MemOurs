@@ -75,27 +75,10 @@ router.get("/journal", auth.ensureLoggedIn, (req, res) => {
   }
 });
 
-router.get("/entry/:entryId", auth.ensureLoggedIn, async (req, res) => {
-  try {
-    const entryId = req.query.entryId;
-    console.log("entryId:");
-    console.log(entryId);
-    const entry = await JournalEntry.findById(entryId);
-
-    if (!entry) {
-      return res.status(404).render("error", { message: "Entry not found" });
-    }
-
-    // Check if the authenticated user is the owner of the entry
-    if (entry.author._id !== req.user?._id) {
-      return res.status(403).render("error", { message: "Access denied" });
-    }
-
-    res.send(entry);
-  } catch (error) {
-    console.error(error);
-    res.status(500).render("error", { message: "Internal Server Error" });
-  }
+router.get("/entry", auth.ensureLoggedIn, async (req, res) => {
+  const entryId = req.query.entryId;
+  const entry = await JournalEntry.findById(entryId);
+  res.send(entry);
 });
 
 // anything else falls to this "not found" case
