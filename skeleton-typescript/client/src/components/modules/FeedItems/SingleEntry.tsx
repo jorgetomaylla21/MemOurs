@@ -4,10 +4,11 @@ import MultipleTags from "../EditorItems/MultipleTags";
 import { Card } from "flowbite-react";
 import { TagOption } from "../EditorItems/TagOption";
 import { ArrowRightIcon } from "@heroicons/react/20/solid";
-import "./SingleEntry.css";
-import JournalEntry from "../../../../../shared/JournalEntry";
 import { DocType } from "./ToggleView";
 import { Link } from "react-router-dom";
+import JournalEntry from "../../../../../shared/JournalEntry";
+
+import "./SingleEntry.css";
 
 const permisssionToColor = new Map<string, string>([
   ["Public", "bg-green-500"],

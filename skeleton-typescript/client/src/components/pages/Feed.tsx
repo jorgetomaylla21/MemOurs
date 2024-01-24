@@ -1,24 +1,12 @@
 import React from "react";
-import { GoogleOAuthProvider, CredentialResponse } from "@react-oauth/google";
-
-import "./Home.css";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 import NavBar from "../modules/MenuItems/NavBar";
 import SideBar from "../modules/MenuItems/SideBar";
-import { SingleEntry } from "../modules/FeedItems/SingleEntry";
-import { EntryList } from "../modules/FeedItems/EntryList";
 import { ToggleView } from "../modules/FeedItems/ToggleView";
+import { GOOGLE_CLIENT_ID, PageProps } from "./Home";
+import "./Home.css";
 
-//TODO(weblab student): REPLACE WITH YOUR OWN CLIENT_ID
-//const GOOGLE_CLIENT_ID = "969378506162-5ltmi54vc1d96lelg5b44slm8c1vbol3.apps.googleusercontent.com";
-
-const GOOGLE_CLIENT_ID = "969378506162-5ltmi54vc1d96lelg5b44slm8c1vbol3.apps.googleusercontent.com";
-
-type Props = {
-  userId?: string;
-  handleLogin: (credentialResponse: CredentialResponse) => void;
-  handleLogout: () => void;
-};
-const Feed = (props: Props) => {
+const Feed = (props: PageProps) => {
   const { handleLogin, handleLogout } = props;
 
   return (

@@ -1,20 +1,16 @@
 import React from "react";
-import { GoogleOAuthProvider, CredentialResponse } from "@react-oauth/google";
-
-import "./Home.css";
-import "../../../src/output.css";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 import NavBar from "../modules/MenuItems/NavBar";
 import SideBar from "../modules/MenuItems/SideBar";
+import { SingleEntry } from "../modules/FeedItems/SingleEntry";
+import JournalEntry from "../../../../shared/JournalEntry";
+import { GOOGLE_CLIENT_ID, PageProps } from "./Home";
+import "./Home.css";
 
-export const GOOGLE_CLIENT_ID =
-  "969378506162-5ltmi54vc1d96lelg5b44slm8c1vbol3.apps.googleusercontent.com";
-
-export type PageProps = {
-  userId?: string;
-  handleLogin: (credentialResponse: CredentialResponse) => void;
-  handleLogout: () => void;
+type Props = PageProps & {
+  entry: JournalEntry;
 };
-const Skeleton = (props: PageProps) => {
+const EntryPage = (props: Props) => {
   const { handleLogin, handleLogout } = props;
 
   return (
@@ -29,10 +25,16 @@ const Skeleton = (props: PageProps) => {
           </aside>
           <section className="header-content-container">
             <header className="header-container">
-              <h1 className="header-text">MemOurs</h1>
+              <h1 className="header-text">{props.entry.title}</h1>
             </header>
             <main>
-              <div className="main-content-container">content here</div>
+              <div className="main-content-container">
+                {!props.userId ? (
+                  <p>Sign in to view content</p>
+                ) : (
+                  <SingleEntry entry={props.entry} readOnly={true} />
+                )}
+              </div>
             </main>
           </section>
         </div>
@@ -41,4 +43,4 @@ const Skeleton = (props: PageProps) => {
   );
 };
 
-export default Skeleton;
+export default EntryPage;
