@@ -4,7 +4,6 @@ import socketManager from "./server-socket";
 
 import JournalEntry from "./models/JournalEntry";
 import User from "./models/User";
-import assert = require("assert");
 
 const router = express.Router();
 
@@ -67,6 +66,29 @@ router.get("/journal", auth.ensureLoggedIn, (req, res) => {
   JournalEntry.find({ permissions: permissions }).then((entry) => {
     res.send(entry);
   });
+});
+
+router.get("/entry/:entryId", auth.ensureLoggedIn, async (req, res) => {
+  try {
+    const entryId = req.query.entryId;
+    console.log("entryId:");
+    console.log(entryId);
+    const entry = await JournalEntry.findById(entryId);
+
+    if (!entry) {
+      return res.status(404).render("error", { message: "Entry not found" });
+    }
+
+    // Check if the authenticated user is the owner of the entry
+    if (entry.author._id !== req.user?._id) {
+      return res.status(403).render("error", { message: "Access denied" });
+    }
+
+    res.send(entry);
+  } catch (error) {
+    console.error(error);
+    res.status(500).render("error", { message: "Internal Server Error" });
+  }
 });
 
 // anything else falls to this "not found" case

@@ -7,6 +7,7 @@ import { ArrowRightIcon } from "@heroicons/react/20/solid";
 import "./SingleEntry.css";
 import JournalEntry from "../../../../../shared/JournalEntry";
 import { DocType } from "./ToggleView";
+import { Link } from "react-router-dom";
 
 const permisssionToColor = new Map<string, string>([
   ["Public", "bg-green-500"],
@@ -16,7 +17,7 @@ const permisssionToColor = new Map<string, string>([
 
 type Props = {
   entry: JournalEntry;
-  docType: DocType;
+  readOnly: boolean;
 };
 
 export const SingleEntry = (props: Props) => {
@@ -24,7 +25,7 @@ export const SingleEntry = (props: Props) => {
   const sanitizedHtml = DOMPurify.sanitize(props.entry.content);
   const tags = props.entry.tags.map((name) => new TagOption(name));
   const date = new Date(props.entry.dateMentioned).toLocaleDateString();
-  const permissionColor = permisssionToColor.get(props.docType);
+  const permissionColor = permisssionToColor.get(props.entry.permissions);
 
   return (
     <Card className="card-container group">
@@ -43,10 +44,16 @@ export const SingleEntry = (props: Props) => {
             <MultipleTags tags={tags} setTags={() => {}} isActive={false} />
           </div>
         </section>
-        <button className="read-button">
-          <span className="text-sm mr-2">{props.docType === DocType.Draft ? "Edit" : "Read"}</span>
-          <ArrowRightIcon className="h-5 w-5" />
-        </button>
+        {props.readOnly ? null : (
+          <Link to={`/entry/${props.entry._id}`}>
+            <div className="read-button">
+              <span className="text-sm mr-2">
+                {props.entry.permissions === DocType.Draft ? "Edit" : "Read"}
+              </span>
+              <ArrowRightIcon className="h-5 w-5" />
+            </div>
+          </Link>
+        )}
       </nav>
     </Card>
   );

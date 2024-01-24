@@ -14,7 +14,7 @@
   }
   .card-container {
     @apply max-w-4xl shadow-lg 
-    border-2 p-2 
+    border-2 p-2
     border-gray-200 hover:bg-gray-100;
   }
   .card-title {
