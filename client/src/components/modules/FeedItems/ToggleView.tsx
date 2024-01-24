@@ -47,7 +47,7 @@ export enum DocType {
 }
 export const ToggleView = (props: Props) => {
   return (
-    <div className="p-2 w-full h-screen bg-gray-100">
+    <div className="p-2 w-full h-screen bg-gray-100 relative">
       <Tabs aria-label="Tabs with underline" theme={DashboardTheme} style="underline">
         <Tabs.Item active title={DocType.Public} icon={HiOutlineUsers}>
           <EntryList userId={props.userId} docType={DocType.Public} />

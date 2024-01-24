@@ -1,42 +1,14 @@
 import React from "react";
-import { GoogleOAuthProvider } from "@react-oauth/google";
-import NavBar from "../modules/MenuItems/NavBar";
-import SideBar from "../modules/MenuItems/SideBar";
 import { ToggleView } from "../modules/FeedItems/ToggleView";
-import { GOOGLE_CLIENT_ID, PageProps } from "./Home";
-import "./Home.css";
 
-const Feed = (props: PageProps) => {
-  const { handleLogin, handleLogout } = props;
-
+type Props = {
+  userId?: string;
+};
+const Feed = (props: Props) => {
   return (
-    <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
-      <div>
-        <header className="fixed top-0 z-50">
-          <NavBar handleLogin={handleLogin} handleLogout={handleLogout} userId={props.userId} />
-        </header>
-        <div className="sidebar-content-container">
-          <aside className="sidebar-page-container">
-            <SideBar userName={props.userName} />
-          </aside>
-          <section className="header-content-container">
-            <header className="header-container">
-              <h1 className="header-text">Your Feed</h1>
-            </header>
-            <main>
-              <div className="main-content-container">
-                {/* <EntryList /> */}
-                {!props.userId ? (
-                  <p>Sign in to view content</p>
-                ) : (
-                  <ToggleView userId={props.userId} />
-                )}
-              </div>
-            </main>
-          </section>
-        </div>
-      </div>
-    </GoogleOAuthProvider>
+    <section className="u-relative">
+      {!props.userId ? <p>Sign in to view content</p> : <ToggleView userId={props.userId} />}
+    </section>
   );
 };
 

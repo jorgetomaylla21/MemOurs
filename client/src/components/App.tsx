@@ -12,8 +12,10 @@ import Feed from "./pages/Feed";
 import { socket } from "../client-socket";
 import User from "../../../shared/User";
 import "../utilities.css";
-import JournalEntry from "../../../shared/JournalEntry";
 import EntryPage from "./pages/EntryPage";
+import NavBar from "./modules/MenuItems/NavBar";
+import SideBar from "./modules/MenuItems/SideBar";
+import "./pages/Home.css";
 
 const App = () => {
   const [userId, setUserId] = useState<string | undefined>(undefined);
@@ -51,104 +53,34 @@ const App = () => {
     post("/api/logout");
   };
 
-  // const ReadOnlyRoute = () => {
-  //   // Fetch entryId from the URL params
-  //   const { entryId } = useParams<{ entryId: string }>();
-  //   const [entry, setEntry] = useState<JournalEntry | null>(null);
-
-  //   const fetchEntry = () => {
-  //     get(`/api/entry/${entryId}`, { entryId: entryId }).then((entry: JournalEntry) =>
-  //       setEntry(entry)
-  //     );
-  //   };
-
-  //   useEffect(fetchEntry, [entryId]);
-
-  //   if (!entry) {
-  //     return null;
-  //   }
-  //   // Render SingleEntry component with the fetched entry
-  //   return (
-  //     <EntryPage
-  //       handleLogin={handleLogin}
-  //       handleLogout={handleLogout}
-  //       userId={userId}
-  //       userName={userName}
-  //       entry={entry}
-  //     />
-  //   );
-  // };
   return (
     <BrowserRouter>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <Home
-              handleLogin={handleLogin}
-              handleLogout={handleLogout}
-              userId={userId}
-              userName={userName}
-            />
-          }
-        />
-        <Route
-          path="/new-entry"
-          element={
-            <TextEditor
-              handleLogin={handleLogin}
-              handleLogout={handleLogout}
-              userId={userId}
-              userName={userName}
-            />
-          }
-        />
-        <Route
-          path="/timeline"
-          element={
-            <TimelinePage
-              handleLogin={handleLogin}
-              handleLogout={handleLogout}
-              userId={userId}
-              userName={userName}
-            />
-          }
-        />
-        <Route
-          path="/calendar"
-          element={
-            <Calendar
-              handleLogin={handleLogin}
-              handleLogout={handleLogout}
-              userId={userId}
-              userName={userName}
-            />
-          }
-        />
-        <Route
-          path="/my-feed"
-          element={
-            <Feed
-              handleLogin={handleLogin}
-              handleLogout={handleLogout}
-              userId={userId}
-              userName={userName}
-            />
-          }
-        />
-        <Route
-          path="/entry/:entryId"
-          element={
-            <EntryPage
-              handleLogin={handleLogin}
-              handleLogout={handleLogout}
-              userId={userId}
-              userName={userName}
-            />
-          }
-        />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+      <header className="fixed top-0 z-50">
+        <NavBar handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />
+      </header>
+      <div className="sidebar-content-container">
+        <aside className="sidebar-page-container">
+          <SideBar userName={userName} />
+        </aside>
+        <section className="header-content-container">
+          <header className="header-container">
+            <h1 className="header-text">MemOurs</h1>
+          </header>
+          <main>
+            <div className="main-content-container">
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/new-entry" element={<TextEditor userId={userId} />} />
+                <Route path="/timeline" element={<TimelinePage />} />
+                <Route path="/calendar" element={<Calendar />} />
+                <Route path="/my-feed" element={<Feed userId={userId} />} />
+                <Route path="/entry/:entryId" element={<EntryPage />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </div>
+          </main>
+        </section>
+      </div>
     </BrowserRouter>
   );
 };
