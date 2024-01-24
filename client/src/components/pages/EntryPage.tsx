@@ -15,15 +15,15 @@ const EntryPage = (props: PageProps) => {
   console.log("ENTRY ID::::");
   console.log(entryId);
   console.log(props.userId);
-  if (entryId && props.userId) {
-    const fetchEntry = () => {
-      get(`/api/entry`, { entryId: entryId }).then((entry: JournalEntry) => setEntry(entry));
-    };
-    useEffect(fetchEntry, []);
-  }
+  const fetchEntry = () => {
+    get(`/api/entry`, { entryId: entryId }).then((entry: JournalEntry) => setEntry(entry));
+  };
+  useEffect(fetchEntry, []);
 
   const { handleLogin, handleLogout } = props;
-
+  if (!entry) {
+    return <div> Sign in to view content </div>;
+  }
   return (
     <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
       <div>
@@ -40,7 +40,7 @@ const EntryPage = (props: PageProps) => {
             </header>
             <main>
               <div className="main-content-container">
-                {!props.userId ? <p>Sign in to view content</p> : <ReadOnly entry={entry} />}
+                <ReadOnly entry={entry} />
               </div>
             </main>
           </section>

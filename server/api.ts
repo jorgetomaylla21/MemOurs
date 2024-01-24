@@ -75,7 +75,7 @@ router.get("/journal", auth.ensureLoggedIn, (req, res) => {
   }
 });
 
-router.get("/entry", auth.ensureLoggedIn, async (req, res) => {
+router.get("/entry", async (req, res) => {
   const entryId = req.query.entryId;
   const entry = await JournalEntry.findById(entryId);
   res.send(entry);
