@@ -2,7 +2,7 @@ import React from "react";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import NavBar from "../modules/MenuItems/NavBar";
 import SideBar from "../modules/MenuItems/SideBar";
-import { SingleEntry } from "../modules/FeedItems/SingleEntry";
+import { ReadOnly } from "../modules/EntryPageItems/ReadOnly";
 import JournalEntry from "../../../../shared/JournalEntry";
 import { GOOGLE_CLIENT_ID, PageProps } from "./Home";
 import "./Home.css";
@@ -29,11 +29,7 @@ const EntryPage = (props: Props) => {
             </header>
             <main>
               <div className="main-content-container">
-                {!props.userId ? (
-                  <p>Sign in to view content</p>
-                ) : (
-                  <SingleEntry entry={props.entry} readOnly={true} />
-                )}
+                {!props.userId ? <p>Sign in to view content</p> : <ReadOnly entry={props.entry} />}
               </div>
             </main>
           </section>

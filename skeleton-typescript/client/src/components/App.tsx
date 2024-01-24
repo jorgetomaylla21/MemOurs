@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter, Route, Routes, useParams } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import { CredentialResponse } from "@react-oauth/google";
-
 import { get, post } from "../utilities";
 import NotFound from "./pages/NotFound";
 import Home from "./pages/Home";
@@ -13,8 +12,8 @@ import Feed from "./pages/Feed";
 import { socket } from "../client-socket";
 import User from "../../../shared/User";
 import "../utilities.css";
-import { SingleEntry } from "./modules/FeedItems/SingleEntry";
 import JournalEntry from "../../../shared/JournalEntry";
+import EntryPage from "./pages/EntryPage";
 
 const App = () => {
   const [userId, setUserId] = useState<string | undefined>(undefined);
@@ -49,8 +48,32 @@ const App = () => {
     post("/api/logout");
   };
 
-  // NOTE:
-  // All the pages need to have the props extended via RouteComponentProps for @reach/router to work properly. Please use the Skeleton as an example.
+  const ReadOnlyRoute = () => {
+    // Fetch entryId from the URL params
+    const { entryId } = useParams<{ entryId: string }>();
+    const [entry, setEntry] = useState<JournalEntry | null>(null);
+
+    const fetchEntry = () => {
+      get(`/api/entry/${entryId}`, { entryId: entryId }).then((entry: JournalEntry) =>
+        setEntry(entry)
+      );
+    };
+
+    useEffect(fetchEntry, [entryId]);
+
+    if (!entry) {
+      return null;
+    }
+    // Render SingleEntry component with the fetched entry
+    return (
+      <EntryPage
+        handleLogin={handleLogin}
+        handleLogout={handleLogout}
+        userId={userId}
+        entry={entry}
+      />
+    );
+  };
   return (
     <BrowserRouter>
       <Routes>
@@ -80,31 +103,11 @@ const App = () => {
           path="/my-feed"
           element={<Feed handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />}
         />
-        <Route path="/entry/:entryId" element={<SingleEntryRoute />} />
+        <Route path="/entry/:entryId" element={<ReadOnlyRoute />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
-};
-
-const SingleEntryRoute = () => {
-  // Fetch entryId from the URL params
-  const { entryId } = useParams<{ entryId: string }>();
-  const [entry, setEntry] = useState<JournalEntry | null>(null);
-
-  const fetchEntry = () => {
-    get(`/api/entry/${entryId}`, { entryId: entryId }).then((entry: JournalEntry) =>
-      setEntry(entry)
-    );
-  };
-
-  useEffect(fetchEntry, [entryId]);
-
-  if (!entry) {
-    return null;
-  }
-  // Render SingleEntry component with the fetched entry
-  return <SingleEntry entry={entry} readOnly={true} />;
 };
 
 export default App;

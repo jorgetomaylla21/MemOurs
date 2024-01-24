@@ -18,9 +18,6 @@ export const EntryList = (props: Props) => {
 
   const loadEntries = () => {
     get("/api/journal", { permissions: props.docType }).then((entries: JournalEntry[]) => {
-      // console.log("ENTRIES:");
-      // console.log(props.docType);
-      // console.log(entries);
       setActiveFeed({
         recipient: props.userId,
         entries: entries,
@@ -34,7 +31,7 @@ export const EntryList = (props: Props) => {
 
   return (
     <div className="c-center">
-      <section className="pt-2">
+      <section className="mt-2">
         {activeFeed.entries
           // sort by date of event
           .sort(
@@ -42,7 +39,7 @@ export const EntryList = (props: Props) => {
               new Date(a.dateMentioned).getDate() - new Date(b.dateMentioned).getDate()
           )
           .map((entry: JournalEntry) => (
-            <ul className="pb-2">
+            <ul className="mb-2">
               <SingleEntry entry={entry} readOnly={false} />
             </ul>
           ))}

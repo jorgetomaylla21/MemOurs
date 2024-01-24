@@ -1,14 +1,11 @@
 import React from "react";
 import DOMPurify from "dompurify";
 import MultipleTags from "../EditorItems/MultipleTags";
-import { Card } from "flowbite-react";
 import { TagOption } from "../EditorItems/TagOption";
 import { ArrowRightIcon } from "@heroicons/react/20/solid";
+import JournalEntry from "../../../../../shared/JournalEntry";
 import { DocType } from "./ToggleView";
 import { Link } from "react-router-dom";
-import JournalEntry from "../../../../../shared/JournalEntry";
-
-import "./SingleEntry.css";
 
 const permisssionToColor = new Map<string, string>([
   ["Public", "bg-green-500"],
@@ -27,16 +24,20 @@ export const SingleEntry = (props: Props) => {
   const tags = props.entry.tags.map((name) => new TagOption(name));
   const date = new Date(props.entry.dateMentioned).toLocaleDateString();
   const permissionColor = permisssionToColor.get(props.entry.permissions);
+  const contentFormat = props.readOnly ? "" : "line-clamp-3 hover:line-clamp-6";
 
   return (
-    <Card className="card-container group">
+    <div className="card-container group">
       <h5 className="card-title">{props.entry.title}</h5>
       <h3 className="card-author"> By: {props.entry.author.name} </h3>
       <section className="content-container">
         <ul className="date-text">Date: {date}</ul>
-        <div className="content-format" dangerouslySetInnerHTML={{ __html: sanitizedHtml }} />
+        <div
+          className={`content-format ${contentFormat}`}
+          dangerouslySetInnerHTML={{ __html: sanitizedHtml }}
+        />
       </section>
-      <nav className="c-between">
+      <nav className="c-between mt-2">
         <section className="c-start">
           <span className={`permission-container ${permissionColor}`}>
             <p className="p-2 text-center">{props.entry.permissions}</p>
@@ -56,6 +57,6 @@ export const SingleEntry = (props: Props) => {
           </Link>
         )}
       </nav>
-    </Card>
+    </div>
   );
 };
