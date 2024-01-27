@@ -9,16 +9,15 @@
 @layer components {
   /* SideBar */
   .sidebar-content-container {
-    @apply flex justify-start 
-    pt-[var(--under-nav)];
+    @apply 
+    fixed flex-shrink-0 pt-[var(--under-nav)] h-full w-1/6 z-50;
   }
   .sidebar-page-container {
-    @apply fixed left-0 
-    h-screen w-[var(--w-sidebar)] z-50;
+    @apply  w-full h-full;
   }
   /* Header */
   .header-content-container {
-    @apply w-full pl-[var(--w-sidebar)];
+    @apply flex-grow pt-[var(--under-nav)];
   }
   .header-container {
     @apply bg-white shadow 
