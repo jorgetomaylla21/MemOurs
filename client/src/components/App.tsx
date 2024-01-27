@@ -67,7 +67,7 @@ const App = () => {
             <h1 className="header-text">MemOurs</h1>
           </header>
           <main>
-            <div className="main-content-container">
+            <div className="main-content-container font-mono">
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/new-entry" element={<TextEditor userId={userId} />} />
