@@ -16,6 +16,7 @@ import EntryPage from "./pages/EntryPage";
 import NavBar from "./modules/MenuItems/NavBar";
 import SideBar from "./modules/MenuItems/SideBar";
 import "./pages/Home.css";
+import EditPage from "./pages/EditPage";
 
 const App = () => {
   const [userId, setUserId] = useState<string | undefined>(undefined);
@@ -75,6 +76,7 @@ const App = () => {
                 <Route path="/calendar" element={<Calendar />} />
                 <Route path="/my-feed" element={<Feed userId={userId} />} />
                 <Route path="/entry/:entryId" element={<EntryPage />} />
+                <Route path="/edit/:entryId" element={<EditPage userId={userId} />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </div>

@@ -7,23 +7,43 @@ import Fields from "./Fields";
 import { MessageOverlay } from "./MessageOverlay";
 import { post } from "../../../utilities";
 import { TagOption } from "./TagOption";
+import JournalEntry from "../../../../../shared/JournalEntry";
 
 interface TextEditorProps {
+  entry?: JournalEntry;
   userId?: string;
+  entryId?: string;
 }
 
+const permissions = [{ name: "Draft" }, { name: "Private" }, { name: "Public" }];
+const tags = ["Fun", "Life", "Entertainment", "Romance", "Career", "Academics"].map(
+  (name) => new TagOption(name)
+);
+
+// Added function to parse passed in entry to deal with setting default values
+const checkParams = (entry?: JournalEntry) => {
+  return {
+    author: entry?.author ?? { name: "", _id: "" },
+    title: entry?.title ?? "",
+    content: entry?.content ?? "",
+    dateMentioned: entry?.dateMentioned ? new Date(entry.dateMentioned) : null,
+    tags: entry?.tags.map((tag) => new TagOption(tag)) ?? [],
+    permissions: entry?.permissions ? { name: entry.permissions } : permissions[0],
+  };
+};
+
 const Editor: React.FC<TextEditorProps> = (props: TextEditorProps) => {
-  const permissions = [{ name: "Draft" }, { name: "Private" }, { name: "Public" }];
-  const tags = ["Fun", "Life", "Entertainment", "Romance", "Career", "Academics"].map(
-    (name) => new TagOption(name)
-  );
-  const [title, setTitle] = useState<string>("");
-  const [editorHtml, setEditorHtml] = useState("");
-  const [currentPermission, setPermissions] = useState(permissions[0]);
-  const [activatedTags, setActivatedTags] = useState(new Array<TagOption>());
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const parsedEntry = checkParams(props.entry);
+  const [title, setTitle] = useState<string>(parsedEntry.title);
+  const [editorHtml, setEditorHtml] = useState(parsedEntry.content);
+  const [currentPermission, setPermissions] = useState(parsedEntry.permissions);
+  const [activatedTags, setActivatedTags] = useState<Array<TagOption>>(parsedEntry.tags);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(parsedEntry.dateMentioned);
   const [warning, setWarning] = useState(false);
   const [saveDisplay, setSaveDisplay] = useState(false);
+
+  // updating journal if entryId exists
+  const routeToSend = props.entryId ? "/api/edit-journal" : "/api/journal";
 
   const warningMessage = {
     header: "Login to account",
@@ -48,6 +68,7 @@ const Editor: React.FC<TextEditorProps> = (props: TextEditorProps) => {
     } else {
       // save to database
       const body = {
+        entryId: props.entryId, // update if exists
         title: title,
         content: editorHtml,
         dateMentioned: new Date(selectedDate ?? new Date()),
@@ -56,9 +77,10 @@ const Editor: React.FC<TextEditorProps> = (props: TextEditorProps) => {
         tags: activatedTags.map((tag) => tag.name),
         permissions: currentPermission.name,
       };
-      post("/api/journal", body).then((entry) => {
+      post(routeToSend, body).then(() => {
         setSaveDisplay(true);
       });
+      setSaveDisplay(false);
     }
   };
 

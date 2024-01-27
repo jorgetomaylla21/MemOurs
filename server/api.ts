@@ -4,6 +4,8 @@ import socketManager from "./server-socket";
 
 import JournalEntry from "./models/JournalEntry";
 import User from "./models/User";
+import JournalEntryModel from "./models/JournalEntry";
+import { Mongoose, isValidObjectId } from "mongoose";
 
 const router = express.Router();
 
@@ -52,6 +54,36 @@ router.post("/journal", auth.ensureLoggedIn, (req, res) => {
     permissions: req.body.permissions,
   });
   newEntry.save().then((entry) => res.send(entry));
+});
+
+router.post("/edit-journal", auth.ensureLoggedIn, (req, res) => {
+  if (!req.user) {
+    res.send({});
+  }
+  const updatedAuthor = {
+    _id: req.user?._id,
+    name: req.user?.name,
+  };
+  const updatedTaggedPeople = req.body.taggedPeople.map((user) => {
+    ({ _id: user._id, name: user.name });
+  });
+
+  const updatedEntry = {
+    author: updatedAuthor,
+    title: req.body.title,
+    content: req.body.content,
+    dateMentioned: new Date(req.body.dateMentioned),
+    taggedPeople: updatedTaggedPeople,
+    createdAt: new Date(req.body.createdAt),
+    tags: req.body.tags,
+    permissions: req.body.permissions,
+  };
+
+  JournalEntry.findByIdAndUpdate(
+    req.body.entryId,
+    { $set: updatedEntry },
+    { new: true } // Return the updated document
+  ).then((entry) => res.send(entry));
 });
 
 router.get("/journal", auth.ensureLoggedIn, (req, res) => {
