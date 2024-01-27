@@ -25,6 +25,20 @@ export const SingleEntry = (props: Props) => {
   const date = new Date(props.entry.dateMentioned).toLocaleDateString();
   const permissionColor = permisssionToColor.get(props.entry.permissions);
   const contentFormat = props.readOnly ? "" : "line-clamp-3 hover:line-clamp-6";
+  const isDraft = props.entry.permissions === DocType.Draft;
+
+  let routeToSend;
+  if (isDraft) {
+    routeToSend = {
+      linkPrefix: `/edit/${props.entry._id}`,
+      button: "Edit",
+    };
+  } else {
+    routeToSend = {
+      linkPrefix: `/entry/${props.entry._id}`,
+      button: "Read",
+    };
+  }
 
   return (
     <div className="card-container group">
@@ -47,11 +61,9 @@ export const SingleEntry = (props: Props) => {
           </div>
         </section>
         {props.readOnly ? null : (
-          <Link to={`/entry/${props.entry._id}`}>
+          <Link to={`${routeToSend.linkPrefix}`}>
             <div className="read-button">
-              <span className="text-sm mr-2">
-                {props.entry.permissions === DocType.Draft ? "Edit" : "Read"}
-              </span>
+              <span className="text-sm mr-2">{routeToSend.button}</span>
               <ArrowRightIcon className="h-5 w-5" />
             </div>
           </Link>
