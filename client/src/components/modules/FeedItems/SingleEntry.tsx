@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 const permisssionToColor = new Map<string, string>([
   ["Public", "bg-green-500"],
   ["Private", "bg-blue-700"],
-  ["Draft", "bg-red-700"],
+  ["Draft", "bg-slate-500"],
 ]);
 
 type Props = {
