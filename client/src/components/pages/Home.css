@@ -10,7 +10,7 @@
   /* SideBar */
   .sidebar-content-container {
     @apply 
-    fixed flex-shrink-0 pt-[var(--under-nav)] h-full w-1/6 z-50;
+    fixed flex-shrink-0 pt-[var(--under-nav)] h-full w-1/6 z-40;
   }
   .sidebar-page-container {
     @apply  w-full h-full;
