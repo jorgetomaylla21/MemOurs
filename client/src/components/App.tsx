@@ -53,27 +53,25 @@ const App = () => {
     setUserId(undefined);
     post("/api/logout");
   };
-//flex-grow pt-[var(--under-nav)]
+  //flex-grow pt-[var(--under-nav)]
   return (
     <BrowserRouter>
       <header className="fixed top-0 z-50">
         <NavBar handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />
       </header>
-  
+
       <div className="flex">
-        {
-          !(userId === undefined) ? (
-            <div className="sidebar-content-container">
-              <aside className="sidebar-page-container">
-                <SideBar userName={userName} />
-              </aside>
-            </div>
-          ) : (
-            null
-          )
-        }
-        
-        <section className={ `${!(userId === undefined)? 'ml-64' : ''} header-content-container`}>
+        {!(userId === undefined) ? (
+          <div className="sidebar-content-container">
+            <aside className="sidebar-page-container">
+              <SideBar userName={userName} />
+            </aside>
+          </div>
+        ) : null}
+
+        <section
+          className={`${!(userId === undefined) ? "ml-[16%]" : ""} header-content-container`}
+        >
           <header className="header-container">
             <h1 className="header-text">MemOurs</h1>
           </header>
@@ -95,7 +93,6 @@ const App = () => {
       </div>
     </BrowserRouter>
   );
-  
 };
 
 export default App;

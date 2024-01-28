@@ -9,11 +9,10 @@
 @layer components {
   /* SideBar */
   .sidebar-content-container {
-    @apply 
-    fixed flex-shrink-0 pt-[var(--under-nav)] h-full w-1/6 z-40;
+    @apply fixed flex-shrink-0 pt-[var(--under-nav)] h-full w-[16%] z-40;
   }
   .sidebar-page-container {
-    @apply  w-full h-full;
+    @apply w-full h-full;
   }
   /* Header */
   .header-content-container {
