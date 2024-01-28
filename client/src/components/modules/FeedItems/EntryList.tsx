@@ -4,6 +4,7 @@ import { SingleEntry } from "./SingleEntry";
 import { DocType } from "./ToggleView";
 import { get } from "../../../utilities";
 import "./SingleEntry.css";
+import { NewEntryCard } from "./NewEntryCard";
 
 type Props = {
   userId?: string;
@@ -32,6 +33,9 @@ export const EntryList = (props: Props) => {
   return (
     <div className="c-center">
       <section className="mt-2">
+        <ul className="mb-2">
+          <NewEntryCard />
+        </ul>
         {activeFeed.entries
           // sort by date of event
           .sort(
