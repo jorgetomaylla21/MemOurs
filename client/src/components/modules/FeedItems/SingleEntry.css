@@ -42,6 +42,7 @@
   .read-button {
     @apply group-hover:text-gray-700  hover:bg-slate-300
     p-2 rounded-md 
-    invisible group-hover:visible inline-flex transition ease-in-out delay-150 hover:scale-110 duration-150 hover:cursor-none;
+    invisible group-hover:visible inline-flex transition ease-in-out delay-150 
+    hover:scale-110 duration-150 hover:cursor-none;
   }
 }

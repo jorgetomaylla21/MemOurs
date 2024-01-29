@@ -6,6 +6,7 @@ import { ArrowRightIcon } from "@heroicons/react/20/solid";
 import JournalEntry from "../../../../../shared/JournalEntry";
 import { DocType } from "./ToggleView";
 import { Link } from "react-router-dom";
+import { EntrySettings } from "./EntrySettings";
 
 const permisssionToColor = new Map<string, string>([
   ["Public", "bg-green-500"],
@@ -16,6 +17,7 @@ const permisssionToColor = new Map<string, string>([
 type Props = {
   entry: JournalEntry;
   readOnly: boolean;
+  userId?: string;
 };
 
 export const SingleEntry = (props: Props) => {
@@ -42,7 +44,15 @@ export const SingleEntry = (props: Props) => {
 
   return (
     <div className="card-container group">
-      <h5 className="card-title">{props.entry.title}</h5>
+      <div className="flex justify-between">
+        <h5 className="card-title">{props.entry.title}</h5>
+        <EntrySettings
+          entryId={props.entry._id}
+          authorId={props.entry.author._id}
+          userId={props.userId}
+        />
+      </div>
+
       <h3 className="card-author"> By: {props.entry.author.name} </h3>
       <section className="content-container">
         <ul className="date-text">Date: {date}</ul>

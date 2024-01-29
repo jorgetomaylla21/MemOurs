@@ -44,7 +44,7 @@ export const EntryList = (props: Props) => {
           )
           .map((entry: JournalEntry, key) => (
             <ul className="mb-2">
-              <SingleEntry key={key} entry={entry} readOnly={false} />
+              <SingleEntry key={key} entry={entry} userId={props.userId} readOnly={false} />
             </ul>
           ))}
       </section>

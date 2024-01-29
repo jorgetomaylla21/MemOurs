@@ -86,6 +86,13 @@ router.post("/edit-journal", auth.ensureLoggedIn, (req, res) => {
   ).then((entry) => res.send(entry));
 });
 
+router.post("/delete-journal", auth.ensureLoggedIn, (req, res) => {
+  if (!req.user) {
+    res.send({});
+  }
+  JournalEntry.findByIdAndDelete(req.body.entryId).then((entry) => res.send(entry));
+});
+
 router.get("/journal", auth.ensureLoggedIn, (req, res) => {
   if (!req.user) {
     res.send({});
