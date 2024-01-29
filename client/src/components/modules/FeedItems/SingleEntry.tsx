@@ -8,7 +8,7 @@ import { DocType } from "./ToggleView";
 import { Link } from "react-router-dom";
 import { EntrySettings } from "./EntrySettings";
 
-const permisssionToColor = new Map<string, string>([
+export const permisssionToColor = new Map<string, string>([
   ["Public", "bg-green-500"],
   ["Private", "bg-blue-700"],
   ["Draft", "bg-slate-500"],

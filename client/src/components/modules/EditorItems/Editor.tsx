@@ -63,6 +63,7 @@ const Editor: React.FC<TextEditorProps> = (props: TextEditorProps) => {
   };
 
   const handleSave = () => {
+    console.log(props.userId);
     if (!props.userId) {
       setWarning(true);
     } else {

@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Tabs } from "flowbite-react";
 import { HiDocument, HiOutlineUser, HiOutlineUsers } from "react-icons/hi";
 import { EntryList } from "./EntryList";
-import { get } from "../../../utilities";
-import { socket } from "../../../client-socket";
 
 const DashboardTheme = {
   base: "flex flex-col gap-2",

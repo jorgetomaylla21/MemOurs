@@ -59,6 +59,7 @@ router.post("/journal", auth.ensureLoggedIn, (req, res) => {
     } else {
       socketManager.getSocketFromUserID(req.user?._id ?? "")?.emit("journalEntries");
     }
+    res.send(entry);
   });
 });
 
@@ -95,6 +96,7 @@ router.post("/edit-journal", auth.ensureLoggedIn, (req, res) => {
     } else {
       socketManager.getSocketFromUserID(req.user?._id ?? "")?.emit("journalEntries");
     }
+    res.send(entry);
   });
 });
 
@@ -108,6 +110,7 @@ router.post("/delete-journal", auth.ensureLoggedIn, (req, res) => {
     } else {
       socketManager.getSocketFromUserID(req.user?._id ?? "")?.emit("journalEntries");
     }
+    res.send(entry);
   });
 });
 
@@ -122,14 +125,29 @@ router.get("/journal", auth.ensureLoggedIn, (req, res) => {
   const permissions = req.query.permissions?.toString();
   const isPublic = permissions === "Public";
   if (isPublic) {
-    JournalEntry.find({ permissions: permissions }).then((entry) => {
-      res.send(entry);
+    JournalEntry.find({ permissions: permissions }).then((entries) => {
+      res.send(entries);
     });
   } else {
-    JournalEntry.find({ permissions: permissions }).then((entry) => {
-      res.send(entry.filter((entry) => entry.author._id == author._id));
+    JournalEntry.find({ permissions: permissions }).then((entries) => {
+      res.send(entries.filter((entry) => entry.author._id == author._id));
     });
   }
+});
+
+router.get("/my-journals", auth.ensureLoggedIn, (req, res) => {
+  if (!req.user) {
+    res.send({});
+  }
+  const author = new User({
+    _id: req.user?._id,
+    name: req.user?.name,
+  });
+  JournalEntry.find().then((entries) => {
+    res.send(
+      entries.filter((entry) => entry.author._id == author._id && entry.permissions !== "Draft")
+    );
+  });
 });
 
 router.get("/entry", async (req, res) => {

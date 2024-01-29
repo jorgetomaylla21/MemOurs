@@ -14,14 +14,14 @@ type Props = {
 
 export const EntryList = (props: Props) => {
   const [activeFeed, setActiveFeed] = useState({
-    recipient: props.userId,
+    user: props.userId,
     entries: new Array<JournalEntry>(),
   });
 
   const loadEntries = () => {
     get("/api/journal", { permissions: props.docType }).then((entries: JournalEntry[]) => {
       setActiveFeed({
-        recipient: props.userId,
+        user: props.userId,
         entries: entries,
       });
     });
@@ -51,7 +51,7 @@ export const EntryList = (props: Props) => {
           // sort by date of event
           .sort(
             (a: JournalEntry, b: JournalEntry) =>
-              new Date(a.dateMentioned).getDate() - new Date(b.dateMentioned).getDate()
+              new Date(b.dateMentioned).getTime() - new Date(a.dateMentioned).getTime()
           )
           .map((entry: JournalEntry, key) => (
             <ul className="mb-2">

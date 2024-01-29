@@ -80,7 +80,10 @@ const App = () => {
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/new-entry" element={<TextEditor userId={userId} />} />
-                <Route path="/timeline" element={<TimelinePage />} />
+                <Route
+                  path="/timeline"
+                  element={<TimelinePage userId={userId} userName={userName} />}
+                />
                 <Route path="/calendar" element={<Calendar />} />
                 <Route path="/my-feed" element={<Feed userId={userId} />} />
                 <Route path="/entry/:entryId" element={<EntryPage />} />
