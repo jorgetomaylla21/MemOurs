@@ -53,7 +53,13 @@ router.post("/journal", auth.ensureLoggedIn, (req, res) => {
     tags: req.body.tags,
     permissions: req.body.permissions,
   });
-  newEntry.save().then((entry) => res.send(entry));
+  newEntry.save().then((entry) => {
+    if (entry?.permissions === "Public") {
+      socketManager.getIo().emit("journalEntries");
+    } else {
+      socketManager.getSocketFromUserID(req.user?._id ?? "")?.emit("journalEntries");
+    }
+  });
 });
 
 router.post("/edit-journal", auth.ensureLoggedIn, (req, res) => {
@@ -83,14 +89,26 @@ router.post("/edit-journal", auth.ensureLoggedIn, (req, res) => {
     req.body.entryId,
     { $set: updatedEntry },
     { new: true } // Return the updated document
-  ).then((entry) => res.send(entry));
+  ).then((entry) => {
+    if (entry?.permissions === "Public") {
+      socketManager.getIo().emit("journalEntries");
+    } else {
+      socketManager.getSocketFromUserID(req.user?._id ?? "")?.emit("journalEntries");
+    }
+  });
 });
 
 router.post("/delete-journal", auth.ensureLoggedIn, (req, res) => {
   if (!req.user) {
     res.send({});
   }
-  JournalEntry.findByIdAndDelete(req.body.entryId).then((entry) => res.send(entry));
+  JournalEntry.findByIdAndDelete(req.body.entryId).then((entry) => {
+    if (entry?.permissions === "Public") {
+      socketManager.getIo().emit("journalEntries");
+    } else {
+      socketManager.getSocketFromUserID(req.user?._id ?? "")?.emit("journalEntries");
+    }
+  });
 });
 
 router.get("/journal", auth.ensureLoggedIn, (req, res) => {

@@ -5,6 +5,7 @@ import { DocType } from "./ToggleView";
 import { get } from "../../../utilities";
 import "./SingleEntry.css";
 import { NewEntryCard } from "./NewEntryCard";
+import { socket } from "../../../client-socket";
 
 type Props = {
   userId?: string;
@@ -28,6 +29,16 @@ export const EntryList = (props: Props) => {
 
   useEffect(() => {
     loadEntries();
+  }, []);
+
+  useEffect(() => {
+    const callback = () => {
+      loadEntries();
+    };
+    socket.on("journalEntries", callback);
+    return () => {
+      socket.off("journalEntries", callback);
+    };
   }, []);
 
   return (
