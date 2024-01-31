@@ -84,7 +84,7 @@ const App = () => {
                   path="/timeline"
                   element={<TimelinePage userId={userId} userName={userName} />}
                 />
-                <Route path="/calendar" element={<Calendar />} />
+                <Route path="/calendar" element={<Calendar userId={userId} />} />
                 <Route path="/my-feed" element={<Feed userId={userId} />} />
                 <Route path="/entry/:entryId" element={<EntryPage />} />
                 <Route path="/edit/:entryId" element={<EditPage userId={userId} />} />

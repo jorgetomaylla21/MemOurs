@@ -1,10 +1,13 @@
 import React from "react";
-import MyDatePicker from "../modules/EditorItems/DatePicker";
 import "./Home.css";
 import CalendarView from "../modules/CalendarItems/CalendarView";
 
-const CalendarPage = () => {
-  return <CalendarView />;
+type Props = {
+  userId?: string;
+};
+
+const CalendarPage = (props) => {
+  return <CalendarView userId={props.userId} />;
 };
 
 export default CalendarPage;
