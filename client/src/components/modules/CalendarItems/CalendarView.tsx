@@ -6,8 +6,8 @@ import { differenceInCalendarDays } from "date-fns";
 import JournalEntry from "../../../../../shared/JournalEntry";
 import { get } from "../../../utilities";
 import { socket } from "../../../client-socket";
-import { entry } from "../../../../../webpack.config";
-import { Link } from "react-router-dom";
+import { groupEntriesByDate } from "./utilities";
+import { MarkerDropdown } from "./MarkerDropdown";
 
 function isSameDay(a: Date, b: Date): boolean {
   return differenceInCalendarDays(a, b) === 0;
@@ -23,19 +23,30 @@ type Props = {
 
 const CalendarView = (props: Props) => {
   const [value, onChange] = useState<Value>(new Date());
+  const [selectedEntryDate, setSelectedEntryDate] = useState<string>(
+    new Date().toLocaleDateString()
+  );
+  const [showEntryMenu, setShowEntryMenu] = useState<boolean>(false);
   const [activeFeed, setActiveFeed] = useState({
     user: props.userId,
-    entries: new Array<JournalEntry>(),
+    datesToEntries: new Map<string, JournalEntry[]>(),
   });
+  const [datesToAddClassTo, setDates] = useState(new Array<Date>());
 
   const loadEntries = () => {
     get("/api/my-journals").then((entries: JournalEntry[]) => {
       setActiveFeed({
         user: props.userId,
-        entries: entries,
+        datesToEntries: groupEntriesByDate(entries),
       });
     });
   };
+
+  useEffect(() => {
+    setDates(
+      Array.from(activeFeed.datesToEntries.keys()).map((dateString) => new Date(dateString))
+    );
+  }, [activeFeed]);
 
   useEffect(() => {
     loadEntries();
@@ -51,27 +62,17 @@ const CalendarView = (props: Props) => {
     };
   }, []);
 
-  const datesToAddClassTo = activeFeed.entries.map((entry) => new Date(entry.dateMentioned));
-
-  function arrayToMapWithOccurrences(arr: Date[]): Map<string, number> {
-    return arr.reduce((map, element) => {
-      map.set(element.toLocaleDateString(), (map.get(element.toLocaleDateString()) || 0) + 1);
-      return map;
-    }, new Map<string, number>());
-  }
-
-  const dateToOccurrences = arrayToMapWithOccurrences(datesToAddClassTo);
-
-  console.log("Date occurrences:");
-  console.log(dateToOccurrences);
-  console.log(dateToOccurrences.get("1/23/2024"));
+  const handleClick = (date: Date) => {
+    setSelectedEntryDate(date.toLocaleDateString());
+    setShowEntryMenu(true);
+  };
 
   function tileClassName({ date, view }) {
     // Add class to tiles in month view only
     if (view === "month") {
       // Check if a date React-Calendar wants to check is on the list of dates to add class to
       if (datesToAddClassTo.find((dDate) => isSameDay(dDate, date))) {
-        return "border-2 rounded-xl";
+        return "border-2 rounded-xl w-full h-full";
       }
     }
   }
@@ -79,32 +80,46 @@ const CalendarView = (props: Props) => {
   function tileContent({ activeStartDate, date, view }) {
     // Add class to tiles in month view only
     if (view === "month") {
-      // Check if a date React-Calendar wants to check is on the list of dates to add class to
+      // Check if a date React-Calendar wants to check is on the list of dates to add dropdown to
       if (datesToAddClassTo.find((dDate) => isSameDay(dDate, date))) {
         return (
-          <Link
-            to="/new-entry/"
-            className="flex justify-center items-center mt-1 rounded-full bg-red-500"
-          >
-            <p className="p-0.5 text-white">{dateToOccurrences.get(date) ?? 2}</p>
-          </Link>
+          <div className="flex justify-center items-center mt-1">
+            <button
+              className="flex justify-center items-center h-6 w-6 aspect-square rounded-full bg-red-500"
+              onClick={() => handleClick(date)}
+            >
+              <p className="text-white p-1 aspect-square">
+                {activeFeed.datesToEntries.get(date.toLocaleDateString())?.length}
+              </p>
+            </button>
+          </div>
         );
       }
     }
   }
 
   return (
-    <div className="flex justify-center items-center p-8 w-full">
-      <Calendar
-        className={
-          "font-mono w-5/6 bg-slate-200 p-8 shadow-lg border-black rounded-lg text-black font-bold"
-        }
-        onChange={onChange}
-        tileClassName={tileClassName}
-        tileContent={tileContent}
-        showNeighboringMonth={false}
-        showDoubleView={true}
-      />
+    <div className="flex justify-start">
+      <span className="ml-4 mt-4 w-full">
+        <Calendar
+          className={
+            "font-mono bg-slate-100 shadow-lg border-0 rounded-lg text-black font-bold z-10"
+          }
+          onChange={onChange}
+          tileClassName={tileClassName}
+          tileContent={tileContent}
+          showNeighboringMonth={false}
+          showDoubleView={true}
+        />
+      </span>
+      <span className="mt-4 ml-2 w-full">
+        {showEntryMenu ? (
+          <MarkerDropdown
+            date={selectedEntryDate}
+            entries={activeFeed.datesToEntries.get(selectedEntryDate) ?? []}
+          />
+        ) : null}
+      </span>
     </div>
   );
 };

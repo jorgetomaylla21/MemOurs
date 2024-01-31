@@ -44,7 +44,7 @@ export const EntryList = (props: Props) => {
   return (
     <div className="c-center">
       <section className="mt-2">
-        <ul className="mb-2">
+        <ul className="mb-2 min-w-60">
           <NewEntryCard />
         </ul>
         {activeFeed.entries
