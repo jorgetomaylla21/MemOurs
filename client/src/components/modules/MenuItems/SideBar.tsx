@@ -13,7 +13,7 @@ const SideBar = (props: Props) => {
   return (
     <div className="sidebar-container group">
       <ProfileCard userName={props.userName} />
-      <StatsCard userId={props.userId}/>
+      <StatsCard userId={props.userId} userName={props.userName}/>
     </div>
   );
 };

@@ -6,6 +6,7 @@ import { socket } from "../../../client-socket";
 
 type Props = {
   userId?: string;
+  userName? : string;
 };
 
 const StatsCard = (props : Props) => {
@@ -76,11 +77,11 @@ const StatsCard = (props : Props) => {
       <div className="stats-header">Stats</div>
       <div className="stats-entry">
         <div className="stats-type">Total Memories</div>
-        <div className="stats-value">{privateFeed.entries.length + publicFeed.entries.length + draftFeed.entries.length }</div>
+        <div className="stats-value">{privateFeed.entries.length + publicFeed.entries.filter(entry => entry.author.name === props.userName).length + draftFeed.entries.length }</div>
       </div>
       <div className="stats-entry">
         <div className="stats-type">Public Memories</div>
-        <div className="stats-value">{publicFeed.entries.length}</div>
+        <div className="stats-value">{publicFeed.entries.filter(entry => entry.author.name === props.userName).length}</div>
       </div>
       <div className="stats-entry">
         <div className="stats-type">Private Memories</div>
@@ -108,8 +109,8 @@ const StatsCard = (props : Props) => {
 
       </div>
       <div className="stats-entry">
-        <div className="stats-type"> Streak</div>
-        <div className="stats-value">15</div>
+        <div className="stats-type"> Other's Public Memories</div>
+        <div className="stats-value">{publicFeed.entries.filter(entry => entry.author.name !== props.userName).length}</div>
       </div>
     </section>
   );
