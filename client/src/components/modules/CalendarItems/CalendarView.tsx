@@ -99,8 +99,8 @@ const CalendarView = (props: Props) => {
   }
 
   return (
-    <div className="flex justify-start">
-      <span className="ml-4 mt-4 w-full">
+    <div className="flex justify-start mx-24">
+      <span className="mt-4 w-full">
         <Calendar
           className={
             "font-mono bg-slate-100 shadow-lg border-0 rounded-lg text-black font-bold z-10"
