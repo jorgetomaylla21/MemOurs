@@ -14,11 +14,6 @@ const StatsCard = (props : Props) => {
     entries: new Array<JournalEntry>(),
   });
 
-  // const [lastEntry, setLastEntry] = useState({
-  //   user: props.userId,
-  //   entries: new JournalEntry,
-  // });
-
   const privateEntries = () => {
     get("/api/journal", { permissions: "Private" }).then((entries: JournalEntry[]) => {
       setPrivateFeed({
@@ -30,17 +25,11 @@ const StatsCard = (props : Props) => {
 
   useEffect(() => {
     privateEntries();
+    publicEntries();
+    draftEntries();
   }, []);
 
-  // useEffect(() => {
-  //   const callback = () => {
-  //     privateEntries();
-  //   };
-  //   socket.on("journalEntries", callback);
-  //   return () => {
-  //     socket.off("journalEntries", callback);
-  //   };
-  // }, []);
+
 
   const [publicFeed, setPublicFeed] = useState({
     user: props.userId,
@@ -55,10 +44,6 @@ const StatsCard = (props : Props) => {
       });
     });
   };
-
-  useEffect(() => {
-    publicEntries();
-  }, []);
 
   const [draftFeed, setDraftFeed] = useState({
     user: props.userId,
@@ -75,7 +60,15 @@ const StatsCard = (props : Props) => {
   };
 
   useEffect(() => {
-    draftEntries();
+    const callback = () => {
+      privateEntries();
+      publicEntries();
+      draftEntries();
+    };
+    socket.on("journalEntries", callback);
+    return () => {
+      socket.off("journalEntries", callback);
+    };
   }, []);
   
   return (
