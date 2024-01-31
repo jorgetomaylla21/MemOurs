@@ -1,10 +1,10 @@
 import React from "react";
 import MyDatePicker from "../modules/EditorItems/DatePicker";
 import "./Home.css";
-import Calendar from "../modules/CalendarItems/Calendar";
+import CalendarView from "../modules/CalendarItems/CalendarView";
 
 const CalendarPage = () => {
-  return <Calendar />;
+  return <CalendarView />;
 };
 
 export default CalendarPage;
