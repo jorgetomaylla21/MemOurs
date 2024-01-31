@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .c-between {
+    @apply flex justify-between items-center;
+  }
+  .c-start {
+    @apply flex justify-start items-center;
+  }
+  .c-center {
+    @apply flex justify-center items-center;
+  }
+  .card-container {
+    @apply max-w-2xl shadow-lg 
+    border-2 border-gray-200 hover:bg-gray-100
+    flex rounded-lg bg-white flex-col p-4;
+  }
+  .card-title {
+    @apply text-2xl py-1 font-bold tracking-tight 
+    text-gray-900 border-b-2 border-slate-300;
+  }
+  .card-author {
+    @apply pt-2 text-gray-700;
+  }
+  /* Content */
+  .content-container {
+    @apply border-b-2 border-slate-100 h-full;
+  }
+  .date-text {
+    @apply text-gray-500 text-sm;
+  }
+  .content-format {
+    @apply font-normal text-gray-700 my-2;
+  }
+  /* Nav */
+  .permission-container {
+    @apply m-2 text-sm font-semibold rounded-md
+    text-white text-center group-hover:text-gray-200;
+  }
+  .read-button {
+    @apply group-hover:text-gray-700  hover:bg-slate-300
+    p-2 rounded-md 
+    invisible group-hover:visible inline-flex transition ease-in-out delay-150 
+    hover:scale-110 duration-150 hover:cursor-none;
+  }
+}

@@ -4,7 +4,7 @@ import { HiDocument, HiOutlineUser, HiOutlineUsers } from "react-icons/hi";
 import { EntryList } from "./EntryList";
 
 const DashboardTheme = {
-  base: "flex flex-col gap-2",
+  base: "flex flex-col gap-2 top-0",
   tablist: {
     base: "flex text-center",
     styles: {
