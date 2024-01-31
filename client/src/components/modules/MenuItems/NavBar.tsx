@@ -21,7 +21,42 @@ const NavBar = (props: Props) => {
   const { handleLogin, handleLogout } = props;
   return (
     <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
+      {
+        (props.userId === undefined) ? (
       <div className="nav-bar">
+        <span className="flex justify-start">
+          <Link to="/">
+            <img src={logo} className="logo" />
+          </Link>
+          <Link to="/tutorial">
+            <div className="nav-icon">Tutorial</div>
+          </Link>
+          
+        </span>
+        <div className="flex justify-between">
+          {props.userId ? (
+            <button
+              className="nav-icon mr-4"
+              onClick={() => {
+                googleLogout();
+                handleLogout();
+              }}
+            >
+              Logout
+            </button>
+          ) : (
+            <div className="google-button">
+              <GoogleLogin
+                onSuccess={handleLogin}
+                onError={() => console.log("Error Logging in")}
+              />
+            </div>
+          )}
+        </div>
+      </div>
+        ) : 
+        (
+          <div className="nav-bar">
         <span className="flex justify-start">
           <Link to="/">
             <img src={logo} className="logo" />
@@ -60,6 +95,9 @@ const NavBar = (props: Props) => {
           )}
         </div>
       </div>
+        )
+      }
+      
     </GoogleOAuthProvider>
   );
 };

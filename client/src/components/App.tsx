@@ -17,6 +17,7 @@ import NavBar from "./modules/MenuItems/NavBar";
 import SideBar from "./modules/MenuItems/SideBar";
 import "./pages/Home.css";
 import EditPage from "./pages/EditPage";
+import TutorialPage from "./pages/TutorialPage";
 
 const App = () => {
   const [userId, setUserId] = useState<string | undefined>(undefined);
@@ -84,6 +85,7 @@ const App = () => {
                   path="/timeline"
                   element={<TimelinePage userId={userId} userName={userName} />}
                 />
+                <Route path="tutorial" element={<TutorialPage/>}/>
                 <Route path="/calendar" element={<Calendar userId={userId} />} />
                 <Route path="/my-feed" element={<Feed userId={userId} />} />
                 <Route path="/entry/:entryId" element={<EntryPage />} />
