@@ -7,6 +7,7 @@ import JournalEntry from "../../../../../shared/JournalEntry";
 import { get } from "../../../utilities";
 import { socket } from "../../../client-socket";
 import { entry } from "../../../../../webpack.config";
+import { Link } from "react-router-dom";
 
 function isSameDay(a: Date, b: Date): boolean {
   return differenceInCalendarDays(a, b) === 0;
@@ -52,12 +53,42 @@ const CalendarView = (props: Props) => {
 
   const datesToAddClassTo = activeFeed.entries.map((entry) => new Date(entry.dateMentioned));
 
+  function arrayToMapWithOccurrences(arr: Date[]): Map<string, number> {
+    return arr.reduce((map, element) => {
+      map.set(element.toLocaleDateString(), (map.get(element.toLocaleDateString()) || 0) + 1);
+      return map;
+    }, new Map<string, number>());
+  }
+
+  const dateToOccurrences = arrayToMapWithOccurrences(datesToAddClassTo);
+
+  console.log("Date occurrences:");
+  console.log(dateToOccurrences);
+  console.log(dateToOccurrences.get("1/23/2024"));
+
   function tileClassName({ date, view }) {
     // Add class to tiles in month view only
     if (view === "month") {
       // Check if a date React-Calendar wants to check is on the list of dates to add class to
       if (datesToAddClassTo.find((dDate) => isSameDay(dDate, date))) {
-        return "text-white bg-sky-700 rounded-full";
+        return "border-2 rounded-xl";
+      }
+    }
+  }
+
+  function tileContent({ activeStartDate, date, view }) {
+    // Add class to tiles in month view only
+    if (view === "month") {
+      // Check if a date React-Calendar wants to check is on the list of dates to add class to
+      if (datesToAddClassTo.find((dDate) => isSameDay(dDate, date))) {
+        return (
+          <Link
+            to="/new-entry/"
+            className="flex justify-center items-center mt-1 rounded-full bg-red-500"
+          >
+            <p className="p-0.5 text-white">{dateToOccurrences.get(date) ?? 2}</p>
+          </Link>
+        );
       }
     }
   }
@@ -70,6 +101,7 @@ const CalendarView = (props: Props) => {
         }
         onChange={onChange}
         tileClassName={tileClassName}
+        tileContent={tileContent}
         showNeighboringMonth={false}
         showDoubleView={true}
       />

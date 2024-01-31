@@ -53,7 +53,7 @@ const App = () => {
     setUserId(undefined);
     post("/api/logout");
   };
-  //flex-grow pt-[var(--under-nav)]
+
   return (
     <BrowserRouter>
       <header className="fixed top-0 z-50">
@@ -64,7 +64,7 @@ const App = () => {
         {!(userId === undefined) ? (
           <div className="sidebar-content-container">
             <aside className="sidebar-page-container">
-              <SideBar userName={userName} userId={userId}/>
+              <SideBar userName={userName} userId={userId} />
             </aside>
           </div>
         ) : null}
