@@ -51,7 +51,7 @@ const StatsCard = (props : Props) => {
   });
 
   const draftEntries = () => {
-    get("/api/journal", { permissions: "Drafts" }).then((entries: JournalEntry[]) => {
+    get("/api/journal", { permissions: "Draft" }).then((entries: JournalEntry[]) => {
       setDraftFeed({
         user: props.userId,
         entries: entries,
@@ -59,7 +59,7 @@ const StatsCard = (props : Props) => {
     });
   };
 
-  useEffect(() => {
+    useEffect(() => {
     const callback = () => {
       privateEntries();
       publicEntries();
