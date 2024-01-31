@@ -64,7 +64,7 @@ const App = () => {
         {!(userId === undefined) ? (
           <div className="sidebar-content-container">
             <aside className="sidebar-page-container">
-              <SideBar userName={userName} />
+              <SideBar userName={userName} userId={userId}/>
             </aside>
           </div>
         ) : null}

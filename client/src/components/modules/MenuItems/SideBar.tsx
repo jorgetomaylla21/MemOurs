@@ -6,13 +6,14 @@ import "./SideBar.css";
 
 type Props = {
   userName?: string;
+  userId?: string;
 };
 
 const SideBar = (props: Props) => {
   return (
     <div className="sidebar-container group">
       <ProfileCard userName={props.userName} />
-      <StatsCard />
+      <StatsCard userId={props.userId}/>
     </div>
   );
 };
