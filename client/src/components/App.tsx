@@ -7,7 +7,7 @@ import NotFound from "./pages/NotFound";
 import Home from "./pages/Home";
 import TextEditor from "./pages/TextEditor";
 import TimelinePage from "./pages/TimelinePage";
-import Calendar from "./pages/Calendar";
+import Calendar from "./pages/CalendarPage";
 import Feed from "./pages/Feed";
 import { socket } from "../client-socket";
 import User from "../../../shared/User";
